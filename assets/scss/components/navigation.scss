@@ -1,0 +1,103 @@
+.main-nav > li{
+    // @apply w-full mb-2;
+
+    @screen sm{
+        @apply mx-2 w-auto;
+    }
+}
+
+.main-nav > li > a{
+    @apply text-gray-300 font-normal uppercase;
+
+    @screen sm{
+        @apply border-b border-gray-800;
+    }
+}
+
+.main-nav > li > a:hover{
+    @apply text-white;
+}
+
+
+.main-nav > li > a.active{
+    @apply text-white underline;
+
+    @screen sm{
+        @apply border-white no-underline;
+    }
+}
+
+
+/*** MEMBER SIDEBAR ***/
+.sidebar{
+    @apply fixed bg-indigo-900 text-white;
+    @apply bottom-0 w-full z-40;
+    z-index:90;
+
+    @screen sm {
+        height:calc(100% - 57px);
+        top:57px;
+        width:65px;
+    }
+}
+
+.sidebar ul.sidebar-mainmenu{
+    @apply flex-grow flex justify-around items-stretch;
+
+    @screen sm {
+        @apply mt-2 flex-col justify-start h-full;
+    }
+}
+
+.sidebar ul li{
+    @screen sm {
+        @apply mb-4 w-full;
+    }
+}
+
+.sidebar ul li a{
+    //display:block;
+    @apply px-4 py-2 block text-center w-full;
+}
+
+.sidebar ul li a.router-link-exact-active {
+    @apply bg-gray-900;
+}
+
+
+/*** SIDE NAV (SETTINGS) ***/
+
+.sidenav{
+
+    @apply flex justify-around w-full overflow-x-auto;
+    @apply .bg-white .shadow;
+
+    @screen md{
+        @apply block;
+    }
+}
+
+.sidenav-item{
+    @apply border-b border-gray-200 text-center cursor-pointer;
+
+    @screen md{
+        @apply text-left;
+    }
+}
+
+.sidenav-item .sidenav-link{
+
+    @apply p-3 border-b-4 border-white w-full block;
+
+    @screen md{
+        @apply  flex items-start border-b-0 border-r-4;
+    }
+}
+
+.sidenav-item .sidenav-link:hover{
+    @apply bg-gray-200 border-gray-200;
+}
+
+.sidenav-item .sidenav-link.router-link-exact-active{
+    @apply border-indigo-800;
+}

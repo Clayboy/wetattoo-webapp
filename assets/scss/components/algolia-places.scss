@@ -1,0 +1,28 @@
+.ap-suggestion{
+    @apply z-50 .flex .items-center .flex-no-wrap;
+}
+
+.ap-dropdown-menu{
+    @apply z-50;
+}
+
+.ap-address,
+.ap-name{
+    white-space:nowrap !important;
+}
+
+.ap-footer{
+    @apply .flex .justify-end .items-center;
+}
+
+.ap-footer .ap-footer-algolia{
+    @apply .mr-1;
+}
+
+.ap-footer .ap-footer-osm{
+    @apply .ml-1;
+}
+
+.ap-footer a{
+    @apply .flex;
+}

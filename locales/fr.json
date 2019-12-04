@@ -1,0 +1,28 @@
+{
+    "artiste" : "artiste | artistes",
+    "Filtre" : "Filtre | Filtres",
+
+    "member.arg_1" : "<span class=\"font-semibold text-indigo-800\">Trouvez</span> votre futur tatoueur et suivez l'actu de <span class=\"font-semibold text-indigo-800\">vos artistes préférés</span>",
+    "member.arg_2" : "Inspirez-vous et  <span class=\"font-semibold text-indigo-800\">réservez facilement</span> un flash dans la marketplace",
+    "member.arg_3" : "Restez informés et notifiés des <span class=\"font-semibold text-indigo-800\">évènements tattoo</span> près de chez vous",
+    "member.arg_4" : "<span class=\"font-semibold text-indigo-800\">Echangez avec les tatoueurs</span> pour réaliser le meilleur tattoo",
+
+    "artist.arg_1" : "<span class=\"font-semibold text-indigo-800\">Diffusez votre art gratuitement</span>",
+    "artist.arg_2" : "Exposez et <span class=\"font-semibold text-indigo-800\">Vendez vos flashs</span> sur la marketplace",
+    "artist.arg_3" : "Recevez des demandes de <span class=\"font-semibold text-indigo-800\">réservations précises</span>",
+    "artist.arg_4" : "<span class=\"font-semibold text-indigo-800\">Communiquez</span> vos déplacements",
+
+    "{count} Créneaux disponibles" : "{count} créneau disponible | {count} créneaux disponibles",
+    "{count} abonnés" : "<strong>{count}</strong> abonné | <strong>{count}</strong> abonnés",
+    "{count} flashs disponibles" : "<strong>{count}</strong> flash disponible | <strong>{count}</strong> flashs disponibles",
+
+    "Abonnés" : "Abonné | Abonnés",
+    "Demandes en attente" : "Demande en attente | Demandes en attente",
+    "Visites" : "Visite | Visites",
+
+    "verified.pending" : "Vérification en attente",
+    "verified.valid" : "Vérifié",
+    "verified.invalid" : "Verification invalide",
+    "verified.none" : "Non vérifié"
+
+}

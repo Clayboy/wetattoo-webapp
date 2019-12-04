@@ -1,0 +1,110 @@
+<template>
+    <div id="app" class="bg-page">
+        <app-header></app-header>
+        <main class="pb-10" style="padding-top:56px;">
+            <div class="sidebar flex text-2xl flex-col">
+                <ul class="sidebar-mainmenu h-full">
+                    <li v-for="(item, index) in menu" :key="index" :class="item.class ? item.class : ''">
+                        <router-link v-if="item.routeName" :to="{name : item.routeName, params : item.params != undefined ? item.params : {}}">
+                            <font-awesome-icon :icon="['fal', item.icon]"></font-awesome-icon>
+                        </router-link>
+                    </li>
+                    <li  class="hidden sm:block flex-grow"></li>
+                    <li>
+                        <router-link :to="profilePage" class="text-center h-full block">
+                            <avatar :img="user.avatar_url" :size="8"></avatar>
+                        </router-link>
+                    </li>
+                    <li class="hidden sm:block">
+                        <router-link :to="{name : 'settings.account'}">
+                            <font-awesome-icon :icon="['fal', 'cog']"></font-awesome-icon>
+                        </router-link>
+                    </li>
+                    <li class="hidden sm:block">
+                        <button class="text-center w-full block" @click.prevent="$store.dispatch('auth/logout', '/')">
+                            <font-awesome-icon :icon="['fal', 'power-off']"></font-awesome-icon>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="pb-6 member-content">
+                <slot></slot>
+            </div>
+        </main>
+    </div>
+</template>
+
+<script>
+
+import AppHeader from '@/components/layout/Header';
+import { mapState, mapGetters } from 'vuex';
+
+export default {
+    components : {
+        AppHeader,
+    },
+
+    data(){
+        return {
+            menus : {
+                artist : [
+                //     {routeName : 'home',            icon : 'home'},
+                //     {routeName : 'portfolio',       icon : 'image-polaroid'},
+                //  // {routeName : 'bo.flashes',      icon : 'bolt'},
+                //     {routeName : 'bo.travels',      icon : 'globe-stand'},
+                //     {routeName : 'bookings.list',   params : {status:"pending"}, icon : 'paper-plane'},
+                //     {routeName : 'bo.calendar',     icon : 'calendar-alt'},
+                ],
+                member : [
+                    // {routeName : 'home', icon : 'home'},
+                    // {routeName : 'artists.list', icon : 'compass'},
+                    // {routeName : 'bookings.list', params : {status:"pending"}, icon : 'paper-plane'},
+                ]
+            }
+        }
+    },
+
+    computed:{
+
+        ...mapState({
+            user : state => state.auth.user,
+            profile : state => state.auth.user.profile
+        }),
+
+        // ...mapGetters({
+        //     usertype : 'auth/usertype'
+        // }),
+
+        menu(){
+            if(this.menus[this.usertype] != undefined){
+                return this.menus[this.usertype];
+            }
+
+            return [];
+        },
+
+        profilePage(){
+            if(this.usertype == 'artist'){
+                return {name : 'artist.portfolio', params : {artist : this.profile.slug}};
+            }else{
+                return {name : 'profile.show'};
+            }
+        }
+    }
+}
+</script>
+
+
+<style class="scss">
+
+    .el-popover.sidebar-hover{
+        @apply text-white bg-gray-800 py-1 px-3 text-base;
+    }
+
+    .el-popper.sidebar-hover[x-placement^=right] .popper__arrow,
+    .el-popper.sidebar-hover[x-placement^=right] .popper__arrow:after{
+        border-right-color:#2D3748;
+    }
+
+</style>

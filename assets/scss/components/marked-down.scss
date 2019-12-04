@@ -1,0 +1,18 @@
+.marked-down h4{
+    @apply .text-base .font-medium .mb-3 .mt-6;
+}
+
+.marked-down ul{
+    @apply .ml-8 .my-3;
+}
+
+.marked-down li{
+    @apply .list-disc;
+}
+
+ .marked-down a{
+    @apply .text-indigo-800;
+}
+.marked-down a:hover{
+    @apply .text-indigo-900;
+}

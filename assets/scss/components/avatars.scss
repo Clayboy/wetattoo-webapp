@@ -1,0 +1,49 @@
+
+.avatar{
+    @apply .rounded-sm .overflow-hidden .border .border-gray-300 .text-center;
+    // padding:2px;
+}
+
+
+.avatar-noborder{
+    padding:0 !important;
+    border:0 !important;
+}
+
+.avatar-noradius{
+    border-radius:0 !important;
+}
+
+.avatar img{
+    @apply .w-full .h-full .object-cover;
+}
+
+.avatar-32{
+    @extend .avatar;
+    @apply .w-32 .h-32;
+}
+
+.avatar-24{
+    @extend .avatar;
+    @apply .w-24 .h-24;
+}
+
+.avatar-20{
+    @extend .avatar;
+    @apply .w-20 .h-20;
+}
+
+.avatar-8{
+    @extend .avatar;
+    @apply .p-0 .w-8 .h-8;
+}
+
+.avatar-6{
+    @extend .avatar;
+    @apply p-0 w-6 h-6;
+}
+
+.avatar-10{
+    @extend .avatar;
+    @apply p-0 w-10 h-10;
+}

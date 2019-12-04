@@ -1,0 +1,29 @@
+{
+  "name": "we-tattoo-app",
+  "scripts": {
+    "dev": "nuxt"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-brands-svg-icons": "^5.11.2",
+    "@fortawesome/pro-duotone-svg-icons": "^5.11.2",
+    "@fortawesome/pro-light-svg-icons": "^5.11.2",
+    "@fortawesome/pro-regular-svg-icons": "^5.11.2",
+    "@fortawesome/pro-solid-svg-icons": "^5.11.2",
+    "@fortawesome/vue-fontawesome": "^0.1.8",
+    "@nuxtjs/auth": "^4.8.4",
+    "@nuxtjs/axios": "^5.8.0",
+    "@nuxtjs/tailwindcss": "^1.2.0",
+    "in-viewport": "^3.6.0",
+    "markdown-it": "^10.0.0",
+    "moment": "^2.24.0",
+    "node-sass": "^4.13.0",
+    "nuxt": "^2.10.2",
+    "nuxt-fontawesome": "^0.4.0",
+    "nuxt-i18n": "^6.4.1",
+    "places.js": "^1.17.1",
+    "sass-loader": "^8.0.0",
+    "vue-i18n": "^8.15.1",
+    "vue-invisible-recaptcha": "^0.2.1"
+  }
+}
