@@ -1,5 +1,8 @@
 const path = require('path')
 
+require('dotenv').config()
+
+
 module.exports = {
     build:{
         postcss: {
@@ -103,7 +106,7 @@ module.exports = {
         }
     },
     axios: {
-        baseURL : 'https://wetattoo.test/api',
+        baseURL : process.env.API_URL,
         https : true
       // proxyHeaders: false
     },
