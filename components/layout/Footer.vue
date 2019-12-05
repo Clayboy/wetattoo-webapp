@@ -30,10 +30,10 @@
                     <h4 class="text-lg font-semibold mb-2 uppercase">Legal</h4>
                     <ul>
                         <li>
-                            <nuxt-link :to="localePath('legal-terms')">Informations légales</nuxt-link>
+                            <nuxt-link :to="{name : 'legal-terms'}">Informations légales</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link :to="localePath('legal-cgu')">Conditions générales d'utilisation</nuxt-link>
+                            <nuxt-link :to="{name : 'legal-cgu'}">Conditions générales d'utilisation</nuxt-link>
                         </li>
                     </ul>
                 </div>

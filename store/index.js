@@ -15,8 +15,8 @@ export const state = () => ({
   export const getters = {
     menu : (state) => {
         return [
-            {label : ('Artistes'), route : {name : 'artists.list'}},
-            {label : ('Conventions'), route : {name : 'conventions'}}
+            {label : ('Artistes'), route : 'artists'},
+            {label : ('Conventions'), route : 'conventions'}
         ]
     },
   }

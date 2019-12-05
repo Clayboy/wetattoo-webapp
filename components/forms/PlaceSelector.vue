@@ -10,7 +10,6 @@
 
 <script>
 
-    import places from 'places.js';
 
     export default {
         props:{
@@ -37,26 +36,31 @@
         methods: {
             initPlaces(){
 
-                this.placesAutocomplete = places({
-                    container: this.$refs.places,
-                    type: this.type,
-                    templates: {
-                        value : suggestion => suggestion.name
-                    }
-                })
+                if (typeof window !== 'undefined') {
+                    const places = require('places.js'); 
 
-                this.placesAutocomplete.on('change', e => {
-
-                    this.$emit('input', {
-                        city : e.suggestion.name,
-                        country : e.suggestion.countryCode.toUpperCase(),
+                    this.placesAutocomplete = places({
+                        container: this.$refs.places,
+                        type: this.type,
+                        templates: {
+                            value : suggestion => suggestion.name
+                        }
                     })
-                });
+
+                    this.placesAutocomplete.on('change', e => {
+
+                        this.$emit('input', {
+                            city : e.suggestion.name,
+                            country : e.suggestion.countryCode.toUpperCase(),
+                        })
+                    });
 
 
-                this.placesAutocomplete.on('clear', e => {
-                    this.$emit('input', {})
-                });
+                    this.placesAutocomplete.on('clear', e => {
+                        this.$emit('input', {})
+                    });
+                }
+
             },
 
         }

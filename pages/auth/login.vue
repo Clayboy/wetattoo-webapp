@@ -12,7 +12,7 @@
             <div class="text-center mt-10">
                 <p class="text-grey-600 text-sm">
                     <p class="text-grey-600 text-sm">{{ $t("Vous n'avez pas de compte ?")}}
-                        <nuxt-link class="no-underline text-blue-400 font-bold" to="/register">{{ $t("Créer un compte") }}</nuxt-link>.
+                        <nuxt-link class="no-underline text-blue-400 font-bold" :to="localePath('auth-register-type')">{{ $t("Créer un compte") }}</nuxt-link>.
                     </p>
                 </p>
             </div>

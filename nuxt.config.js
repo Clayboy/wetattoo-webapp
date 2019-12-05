@@ -16,6 +16,18 @@ module.exports = {
         '~assets/scss/tailwind.scss', 
     ],
 
+    head: {
+        title: 'Get Inspired . Get tattooed',
+        titleTemplate: '%s - WE Tattoo',
+        meta: [
+          { charset: 'utf-8' },
+          { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    
+          // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+          { hid: 'description', name: 'description', content: 'Meta description' }
+        ]
+    },
+
 
     
     modules: [
@@ -62,7 +74,7 @@ module.exports = {
                 iso: 'en-US',
             },
         ],
-        strategy: 'prefix_except_default',
+        // strategy: 'prefix_except_default',
         defaultLocale: 'fr',
         detectBrowserLanguage: {
             useCookie: true,
@@ -73,7 +85,9 @@ module.exports = {
             'about/artists' : {
                 en : '/about/artists',
                 fr : '/a-propos/tatoueurs',
-            }
+            },
+            'legal/terms' : false,
+            'legal/cgu' : false
         },
         vueI18n: {
           fallbackLocale: 'fr',

@@ -12,18 +12,18 @@ html {
     @apply font-body text-black w-full;
     color:#383f4e;
 
-    background:url('/images/bg.jpg') top left fixed;
+    background:url('https://cdn.we-tattoo.com/assets/bg/bg.jpg') top left fixed;
     background-color:#f5f6f9;
     background-size:cover;
 }
 
 .bg-home{
-    background:url('/images/bg_dark.jpg') top left fixed;
+    background:url('https://cdn.we-tattoo.com/assets/bg/bg_dark.jpg') top left fixed;
     background-size:cover;
 }
 
 .bg-home-light{
-    background:url('/images/bg.jpg') top left fixed;
+    background:url('https://cdn.we-tattoo.com/assets/bg/bg.jpg') top left fixed;
     background-size:cover;
 }
 
@@ -35,7 +35,7 @@ html {
     @apply flex-grow w-full bg-white;
 
     min-height:100%;
-    padding-top:56px;
+    // padding-top:56px;
 
     @screen lg{
         @apply  flex items-stretch;
@@ -85,7 +85,7 @@ html {
 
 // @import '../../node_modules/vue-datetime/dist/vue-datetime.min.css';
 // @import '../../node_modules/v-calendar/lib/v-calendar.min.css';
-// @import '../../node_modules/element-ui/lib/theme-chalk/index.css';
+@import '../../node_modules/element-ui/lib/theme-chalk/index.css';
 @import './components/navigation.scss';
 @import './components/avatars.scss';
 @import './components/algolia-places.scss';
@@ -96,7 +96,7 @@ html {
 @import url('https://fonts.googleapis.com/css?family=Heebo:300,400,500,700&display=swap');
 
  .card{
-     @apply .bg-white .rounded .shadow .p-3
+    @apply .bg-white .rounded .shadow .p-3
  }
 
 //  Forms

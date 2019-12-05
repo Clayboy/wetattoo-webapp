@@ -2,12 +2,12 @@
     <header class="fixed top-0 z-50 w-full bg-gray-800 border-b border-gray-900 px-3 shadow sm:shadow-none">
         <div class="flex items-center justify-between py-1 flex-no-wrap">
             <!-- Logo -->
-            <a class="no-underline -my-1 flex items-center mr-10 flex-shrink-0 flex-grow sm:flex-grow-0" href="/" style="height:56px;">
+            <nuxt-link class="no-underline -my-1 flex items-center mr-10 flex-shrink-0 flex-grow sm:flex-grow-0" to="/" style="height:56px;">
                 <img src="/images/logo_big.png" alt="We Tattoo" class="w-10 h-10 -mt-1 mr-2 md:mr-2"/>
                 <div class="font-light text-2xl md:text-3xl text-white">
                     We Tattoo
                 </div>
-            </a>
+            </nuxt-link>
 
             <!-- Small size defice burger -->
             <div class="block sm:hidden text-white">
@@ -41,12 +41,12 @@
                         </nuxt-link>
                     </li>
                     <li v-if="register_member">
-                        <router-link class="text-gray-600 hover:text-indigo-900" :to="{name: 'register'}">
+                        <router-link class="text-gray-600 hover:text-indigo-900" :to="localePath({name:'auth-register-type'})">
                             {{ $t('Rejoindre la communauté') }}
                         </router-link>
                     </li>
                     <li v-if="register_tattooist">
-                        <router-link class="text-gray-600 hover:text-indigo-900" :to="{name: 'register.artist'}">
+                        <router-link class="text-gray-600 hover:text-indigo-900" :to="localePath({name:'auth-register-type', params : {type : 'artist'}})">
                             {{ $t('Accès tatoueur') }}
                         </router-link>
                     </li>
@@ -72,17 +72,17 @@
 
             <ul class="main-nav text-left whitespace-no-wrap mt-8 pt-8 border-t border-gray-300" v-if="!$auth.loggedIn">
                 <li v-if="connection" class="mr-3 my-1">
-                    <router-link class="text-gray-600 hover:text-indigo-900" :to="{name: 'login'}">
+                    <router-link class="text-gray-600 hover:text-indigo-900" :to="localePath('auth-login')">
                         {{ $t('Connexion') }}
                     </router-link>
                 </li>
                 <li v-if="register_member" class="mr-3 my-1">
-                    <router-link class="text-gray-600 hover:text-indigo-900" :to="{name: 'register'}">
+                    <router-link class="text-gray-600 hover:text-indigo-900" :to="localePath('auth-register-type')">
                         {{ $t('Accès tatoué') }}
                     </router-link>
                 </li>
                 <li v-if="register_tattooist" class="mr-3 my-1">
-                    <router-link class="text-gray-600 hover:text-indigo-900" :to="{name: 'register.artist'}">
+                    <router-link class="text-gray-600 hover:text-indigo-900" :to="localePath({name:'auth-register-type', params : {type : 'artist'}})">
                         {{ $t('Accès tatoueur') }}
                     </router-link>
                 </li>
@@ -120,9 +120,12 @@
                 return this.$store.getters['auth/authenticated'];
             },
 
-            ...mapGetters([
-                'menu',
-            ]),
+            menu (){
+                return [
+                    {label : this.$i18n.t('Artistes'), route : this.localePath('artists')},
+                    {label : this.$i18n.t('Conventions'), route : this.localePath('conventions')}
+                ]
+            },
 
             ...mapState({
                 user: state => state.auth.user

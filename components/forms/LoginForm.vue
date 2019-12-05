@@ -35,7 +35,7 @@
         </div>
 
         <div class="flex items-center justify-between">
-            <router-link v-if="displayLostPassword" :to="{name : 'password.email'}" class="no-underline inline-block align-baseline text-sm text-blue-400 hover:text-blue-dark-600 float-right">
+            <router-link v-if="displayLostPassword" :to="localePath('auth-lost-password')" class="no-underline inline-block align-baseline text-sm text-blue-400 hover:text-blue-dark-600 float-right">
                 {{ $t('Mot de passe oublié ?') }}
             </router-link>
 

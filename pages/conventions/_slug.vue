@@ -116,6 +116,8 @@
     const GoogleApiKey = "AIzaSyDqyLPxUWDf4AmmHD5P05zd-SNG3I9Xh0g";
 
     export default {
+        nuxtI18n: false,
+
         computed: {
 
             convention(){

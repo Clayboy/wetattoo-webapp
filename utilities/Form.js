@@ -1,12 +1,21 @@
 import Errors from './Errors';
 
+let client
+
+export function setClient(newclient) {
+  client = newclient
+}
+
+
 export default class Form {
 
 	constructor(data){
 
+        this.httpclient = client;
+
         this.multipart = false;
         this.originalData = data;
-        this.error_message =
+        this.error_message = "";
 
 		this.setData(data);
 
@@ -55,7 +64,7 @@ export default class Form {
 	submit(requestType, url){
 		return new Promise((resolve, reject) => {
 
-			axios[requestType](url, this.data())
+			this.httpclient[requestType](url, this.data())
 				.then(response => {
 					this.onSuccess(response.data);
 					resolve(response.data);

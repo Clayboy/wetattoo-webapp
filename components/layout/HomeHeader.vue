@@ -5,7 +5,7 @@
             <div class="w-1/3 sm:w-2/5 flex-grow">
                 <ul class="hidden sm:flex items-center justify-end main-nav mt-2 sm:mt-auto text-right">
                     <li v-for="(item, index) in menu" :key="`large-menu-${index}`">
-                        <router-link :to="item.route" v-text="item.label" />
+                        <router-link :to="localePath(item.route)" v-text="item.label" />
                     </li>
                 </ul>
             </div>
@@ -17,19 +17,19 @@
                 <img src="/images/logo_600.png" alt="We Tattoo" class="home-logo rounded-full shadow" />
             </div>
             <div class="w-1/3 sm:w-2/5 flex-grow">
-                <ul class="hidden sm:flex items-center justify-start main-nav text-left whitespace-no-wrap" v-if="!authenticated">
+                <ul class="hidden sm:flex items-center justify-start main-nav text-left whitespace-no-wrap" v-if="!$auth.loggedIn">
                     <li v-if="connection">
-                        <router-link :to="{name: 'login'}">
+                        <router-link :to="localePath('auth-login')">
                             {{ $t('Connexion') }}
                         </router-link>
                     </li>
                     <li v-if="register_member">
-                        <router-link :to="{name: 'register'}">
+                        <router-link :to="localePath('auth-register-type')">
                             {{ $t('Accès tatoué') }}
                         </router-link>
                     </li>
                     <li v-if="register_tattooist">
-                        <router-link :to="{name: 'register.artist'}">
+                        <router-link :to="localePath({name : 'auth-register-type', params : {type : 'artist'}})">
                             {{ $t('Accès tatoueur') }}
                         </router-link>
                     </li>
@@ -53,7 +53,7 @@
 
 
         <div v-if="open" class="fixed left-0 h-full w-full z-30 py-6 px-4 block sm:hidden" style="top:6.5rem;height:calc(100% - 6rem);background:rgba(45,55,72,0.9)">
-            <div  v-if="authenticated" class="mb-8 pb-8 border-b border-gray-300">
+            <div  v-if="$auth.loggedIn" class="mb-8 pb-8 border-b border-gray-300">
                 <!-- <notification-icon class="sm:mr-2"></notification-icon> -->
                 <user-top-menu></user-top-menu>
             </div>
@@ -64,21 +64,21 @@
                 </li>
             </ul>
 
-            <ul class="main-nav text-left whitespace-no-wrap mt-8 pt-8 border-t border-gray-300" v-if="!authenticated">
+            <ul class="main-nav text-left whitespace-no-wrap mt-8 pt-8 border-t border-gray-300" v-if="!$auth.loggedIn">
                 <li v-if="connection" class="mr-3 my-1">
-                    <router-link class="text-gray-600 hover:text-indigo-900" :to="{name: 'login'}">
+                    <nuxt-link class="text-gray-600 hover:text-indigo-900" :to="localePath('auth-login')">
                         {{ $t('Connexion') }}
-                    </router-link>
+                    </nuxt-link>
                 </li>
                 <li v-if="register_member" class="mr-3 my-1">
-                    <router-link class="text-gray-600 hover:text-indigo-900" :to="{name: 'register'}">
+                    <nuxt-link class="text-gray-600 hover:text-indigo-900" :to="localePath({name: 'auth-register-type'})">
                         {{ $t('Accès tatoué') }}
-                    </router-link>
+                    </nuxt-link>
                 </li>
                 <li v-if="register_tattooist" class="mr-3 my-1">
-                    <router-link class="text-gray-600 hover:text-indigo-900" :to="{name: 'register.artist'}">
+                    <nuxt-link class="text-gray-600 hover:text-indigo-900" :to="localePath({name: 'auth-register-type', params : {type : 'artist'}})">
                         {{ $t('Accès tatoueur') }}
-                    </router-link>
+                    </nuxt-link>
                 </li>
             </ul>
         </div>
@@ -90,8 +90,6 @@
 
 
 <script>
-
-    import Visible from '@/components/Visible'
     import UserNotifications from '@/components/users/UserNotifications'
     import UserTopMenu from '@/components/users/UserTopMenu'
     import { mapGetters, mapState } from 'vuex'
@@ -102,8 +100,8 @@
             return {
                 open:false,
                 connection : true,
-                register_member : window.appvars.register_member,
-                register_tattooist : window.appvars.register_tattooist,
+                register_member : true, //process.env.REGISTER_MEMBER,
+                register_tattooist : true //process.env.REGISTER_ARTISTS,
             }
         },
 
@@ -133,7 +131,6 @@
         components:{
             UserNotifications,
             UserTopMenu,
-            Visible
         }
     }
 </script>

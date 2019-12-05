@@ -66,6 +66,8 @@
 </template>
 
 <script>
+    import Form from '@/utilities/Form'
+
     export default {
         props:{
             type : {
@@ -82,13 +84,13 @@
         data(){
             return {
                 form : new Form({
-                    timezone : moment.tz.guess(),
+                    timezone : this.$moment.tz.guess(),
                     name: '',
                     email: '',
                     password: '',
                     password_confirmation: '',
                     profile : this.type,
-                    locale : this.$store.state.language.language
+                    locale : this.$i18n.locale
                 })
             }
         },
@@ -101,11 +103,8 @@
             submit() {
                 return this.form.post('/auth/register')
                     .then((data) => {
-
-                        this.$auth.loginWith('local', {
-                            data : this.form.data()
-                        })
-                        // this.$store.dispatch('auth/login', {user : data.user, token : data.token});
+                        this.$auth.setUserToken(data.token);
+                        this.$auth.fetchUser()
                         this.$emit('registered', {user : data.user});
                     })
                     .catch((error) => {
