@@ -28,17 +28,22 @@
             },
             label:{
                 type: String,
-            }
+            },
         },
         components : {
             'el-option' : Option,
             'el-select' : Select,
         },
+        
         data(){
             return {
-                tattooStyles : tattooStyles,
+                tattooStyles : [],
                 val : this.value,
             }
+        },
+
+        async mounted(){
+            this.tattooStyles = await this.$store.dispatch('tattooStyles')
         },
 
         methods: {

@@ -19,13 +19,21 @@
 </template>
 
 <script>
-    import {tattooStyles} from '@/utilities/TattooVars';
 
     export default {
         props : {
             artist:{
                 type: Object
+            },
+        },
+        data(){
+            return {
+                tattooStyles : []
             }
+        },
+
+        async mounted(){
+            this.tattooStyles = await this.$store.dispatch('tattooStyles')
         },
 
         computed:{
@@ -41,7 +49,7 @@
                     return [];
                 }
 
-                return tattooStyles.filter(style => this.artist.preferred_styles.indexOf(style.name) != -1)
+                return this.tattooStyles.filter(style => this.artist.preferred_styles.indexOf(style.name) != -1)
             }
         }
     }

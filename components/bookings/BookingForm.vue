@@ -21,7 +21,7 @@
                                     name="zone"
                                     v-model="bookingRequest.zone">
                                     <option value="" class="text-gray-500">— {{ $t("Choisissez l'emplacement de votre futur tatouage")}} —</option>
-                                    <option v-for="zone in zones"
+                                    <option v-for="zone in tattooZones"
                                         v-text="zone.label"
                                         :value="zone.name"
                                         :key="zone.name"></option>
@@ -134,7 +134,7 @@
                     <div>
                         <h3 class="text-xl font-light mb-4">{{ $t("À propos de vous") }}</h3>
 
-                        <div v-if="authenticated">
+                        <div v-if="$auth.loggedIn">
                             <div class="field mb-2">
                                 <label class="label mb-1 block" for="">
                                     {{ $t("Nom") }}
@@ -317,17 +317,17 @@
 <script>
 
     import Form from '@/utilities/Form';
-    import {tattooZones} from '@/utilities/TattooVars';
     import LoginForm from '@/components/forms/LoginForm'
     import RegisterForm from '@/components/forms/RegisterForm'
-    // import InvisibleRecaptcha from 'vue-invisible-recaptcha';
     import RightPanel from '@/components/layout/RightPanel';
+    import {tattooZones} from '@/utilities/TattooVars';
+
+    import {mapState, mapGetters, mapActions} from 'vuex';
 
     export default {
         components : {
             LoginForm,
             RegisterForm,
-            // InvisibleRecaptcha,
             RightPanel
         },
         props:{
@@ -362,20 +362,21 @@
                     phone : '',
                 }),
                 account : 'new',
-                zones : tattooZones,
                 step : 1,
+                tattooZones : this.$root.context.app.global.tattooZones
             }
         },
 
         async mounted() {
             await this.$recaptcha.init()
+            this.tattooZones = await this.$store.dispatch('tattooZones')
         },
 
 
         created(){
-            if(this.authenticated){
-                this.bookingRequest.user_id = this.user.id
-                this.bookingRequest.email = this.user.email
+            if(this.$auth.loggedIn){
+                this.bookingRequest.user_id = this.$auth.user.id
+                this.bookingRequest.email = this.$auth.user.email
             }
         },
 
@@ -385,23 +386,19 @@
                 return this.$i18n.t('Réserver un tatouage avec {artist}', {artist : `<span class="text-indigo-800">${this.artistPseudo}</span>`})
             },
 
-            authenticated(){
-                return this.$store.getters['auth/authenticated'];
-            },
             user(){
                 return this.$store.state.auth.user;
             }
         },
 
         methods : {
-            noop(){
-                this.bookingRequest.gRecaptchaResponse != "";
-            },
+
+            
+
             setToken(token){
                 this.bookingRequest.gRecaptchaResponse = token;
                 this.save();
             },
-
 
             updateUser(){
                 this.bookingRequest.user_id = this.$store.state.auth.user.id;
@@ -443,7 +440,7 @@
 
             saveBooking(){
 
-                this.bookingRequest.post(this.authenticated ? '/bookings' : '/bookings/anonymous')
+                this.bookingRequest.post(this.$auth.loggedIn ? '/bookings' : '/bookings/anonymous')
                     .then(response => {
 
                         this.$message({

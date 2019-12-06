@@ -60,7 +60,7 @@
         </div>
 
         <div v-if="open" class="fixed sm:hidden left-0 h-full w-full z-30 py-6 px-4" style="top:56px;height:calc(100% - 56px);background:rgba(45,55,72,0.95)">
-            <div  v-if="authenticated" class="mb-8 pb-8 border-b border-gray-300">
+            <div  v-if="$auth.loggedIn" class="mb-8 pb-8 border-b border-gray-300">
                 <user-top-menu></user-top-menu>
             </div>
 
@@ -116,10 +116,6 @@
         },
 
         computed:{
-            authenticated(){
-                return this.$store.getters['auth/authenticated'];
-            },
-
             menu (){
                 return [
                     {label : this.$i18n.t('Artistes'), route : this.localePath('artists')},

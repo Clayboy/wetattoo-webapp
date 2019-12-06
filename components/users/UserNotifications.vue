@@ -105,11 +105,7 @@
 
             hasUnreadNotifications(){
                 return this.unread_count != null && this.unread_count > 0;
-            },
-
-            ...mapGetters({
-                authenticated : 'auth/authenticated'
-            })
+            }
         },
 
         created(){

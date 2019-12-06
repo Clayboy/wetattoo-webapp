@@ -9,7 +9,7 @@ const types = {
 
 const fetchUrl = '/artists';
 
-export const state = {
+export const state = () => ({
     listLoaded : false,
     baseUrl : '/artists',
     data : [],
@@ -24,8 +24,8 @@ export const state = {
         current_page : 0,
         per_page : 20,
         total : null,
-    },
-}
+    }
+})
 
 // On définit nos mutations
 export const mutations = {

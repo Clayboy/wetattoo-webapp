@@ -1,5 +1,4 @@
 
-
 export const tattooZones = [
     { name : 'hand'       , label : ('Main')},
     { name : 'forearm'    , label : ('Avant-bras')},

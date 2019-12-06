@@ -35,7 +35,7 @@
                     </li>
                 </ul>
 
-                <div  v-if="authenticated" class="hidden sm:flex items-center justify-start">
+                <div  v-if="$auth.loggedIn" class="hidden sm:flex items-center justify-start">
                     <user-notifications class="sm:mr-2"></user-notifications>
                     <user-top-menu></user-top-menu>
                 </div>
@@ -83,7 +83,7 @@
             </ul>
         </div>
 
-        <lang-switcher v-if="!authenticated" class="hidden sm:block" style="position:absolute;top:0.5rem;right:0.5rem;"></lang-switcher>
+        <lang-switcher v-if="!$auth.loggedIn" class="hidden sm:block" style="position:absolute;top:0.5rem;right:0.5rem;"></lang-switcher>
 
     </header>
 </template>
@@ -114,7 +114,6 @@
         computed:{
             ...mapGetters({
                 menu : 'menu',
-                authenticated :'auth/authenticated'
         }),
 
 ...mapState({

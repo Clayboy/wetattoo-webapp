@@ -16,9 +16,9 @@
                     <li>{{ $t('Optimisez votre communication') }}<span class="block text-sm md:text-base text-gray-600 mb-3">{{ $t("Créneaux dispos, Ouverture des résas, Notifications abonnés") }}</span></li>
                 </ul>
                 <p class="text-center">
-                    <router-link class="button" :to="{name: 'register.artist'}">
+                    <nuxt-link class="button" :to="localePath({name : 'auth-register-type', params : {type : 'artist'}})">
                         {{ $t("Créez votre compte We Tattoo") }}
-                    </router-link>
+                    </nuxt-link>
                 </p>
             </div>
         </div>
@@ -218,9 +218,9 @@
                         {{ $t("Nous vous tiendrons informés des tarifs bientôt.") }}
                     </p>
                     <p class="text-center mt-20">
-                        <router-link class="text-white bg-indigo-800 text-lg px-6 py-3 rounded shadow inline-block mx-4" :to="{name: 'register.artist'}">
+                        <nuxt-link class="text-white bg-indigo-800 text-lg px-6 py-3 rounded shadow inline-block mx-4" :to="localePath({name : 'auth-register-type', params : {type : 'artist'}})">
                             {{ $t("Créez votre compte We Tattoo maintenant !") }}
-                        </router-link>
+                        </nuxt-link>
                     </p>
                 </div>
             </div>

@@ -102,6 +102,10 @@ module.exports = {
             en: require('./locales/en.json'),
             fr: require('./locales/fr.json')
           },
+          silentFallbackWarn: false,
+          formatFallbackMessages: true,
+          silentFallbackWarn : true,
+          silentTranslationWarn : true,
         }
     },
 
@@ -133,6 +137,7 @@ module.exports = {
     },
     plugins: [
         '~/plugins/global',
+        '~/plugins/tattoo-vars',
         // '~/plugins/i18n',
         '~/plugins/axios'
       ]

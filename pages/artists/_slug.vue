@@ -308,8 +308,8 @@ export default {
         },
     },
 
-    metaInfo() {
-        return this.artist ? {
+    head() {
+        return {
             title : this.artist.pseudo + (this.location ? " · " + this.$i18n.t("Tatoueur")  + " " + this.location : "") + (this.serializedStyles != "" ? " · " + this.serializedStyles : ""),
             meta: [
                 { 'property': 'og:title', 'content': this.$i18n.t("Découvrez {artist} sur WE Tattoo", {artist : this.artist.pseudo}), 'vmid': 'og:title'},
@@ -317,7 +317,7 @@ export default {
                 { 'property': 'og:image', 'content': `${this.artist.avatar_url}`, 'vmid': 'og:image'},
                 { 'property': 'og:description', 'content': this.artist.bio, 'vmid': 'og:description'}
             ]
-        } : {}
+        } 
     }
 }
 </script>

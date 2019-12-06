@@ -90,9 +90,9 @@
                                 <br />
                                 {{ $t('Vous êtes artiste ?' )}}
 
-                                <router-link class="inline-block bg-indigo-800 px-4 mt-3 py-2 rounded hover:bg-indigo-900 text-white font-normal" :to="{name : 'register.artist'}">
+                                <nuxt-link class="inline-block bg-indigo-800 px-4 mt-3 py-2 rounded hover:bg-indigo-900 text-white font-normal" :to="localePath({name : 'auth-register-type', params : {type : 'artist'}})">
                                     {{ $t('Créez un compte!') }}
-                                </router-link>
+                                </nuxt-link>
                             </div>
 
                         </div>
