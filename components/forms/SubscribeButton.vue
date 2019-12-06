@@ -29,12 +29,11 @@
 
                 let requestTye = this.isActive ? 'delete' : 'post';
 
-                axios[requestTye](`/artists/${this.artist.id}/subscriptions`)
-                .then(response => {
-                    this.isActive = !this.isActive ;
-
-                    this.isActive ? this.$emit('subscribed') : this.$emit('unsubscribed');
-                })
+                this.$axios[requestTye](`/artists/${this.artist.id}/subscriptions`)
+                    .then(response => {
+                        this.isActive = !this.isActive ;
+                        this.isActive ? this.$emit('subscribed') : this.$emit('unsubscribed');
+                    })
             }
         }
 

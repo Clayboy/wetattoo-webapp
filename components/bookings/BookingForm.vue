@@ -5,7 +5,7 @@
             <span v-html="title"></span>
         </template>
         <template v-slot:body>
-            <form ref="bookingform" method="post" v-if="step == 1">
+            <form ref="bookingform" method="post" @submit.prevent="onSubmit">
                     <div class="mb-8">
                         <h3 class="text-xl font-light mb-3">
                             {{ $t("Votre projet") }}
@@ -298,16 +298,14 @@
                     </div>
 
                     <div class="text-center">
-                        <invisible-recaptcha
-                            :callback="setToken"
-                            class="button"
-                            :validate="noop"
-                            :sitekey="recaptcha_key"
-                            badge="bottomleft"
-                            type="submit"
-                            id="save_button">
+
+                        <recaptcha @error="onError" 
+                            @success="onSuccess" 
+                            @expired="onExpired" />
+
+                        <button type="submit" class="btn btn-primary">
                             {{ $t("Envoyer votre demande") }}
-                        </invisible-recaptcha>
+                        </button>
 
                     </div>
                 </form>
@@ -318,17 +316,18 @@
 </template>
 <script>
 
+    import Form from '@/utilities/Form';
     import {tattooZones} from '@/utilities/TattooVars';
     import LoginForm from '@/components/forms/LoginForm'
     import RegisterForm from '@/components/forms/RegisterForm'
-    import InvisibleRecaptcha from 'vue-invisible-recaptcha';
+    // import InvisibleRecaptcha from 'vue-invisible-recaptcha';
     import RightPanel from '@/components/layout/RightPanel';
 
     export default {
         components : {
             LoginForm,
             RegisterForm,
-            InvisibleRecaptcha,
+            // InvisibleRecaptcha,
             RightPanel
         },
         props:{
@@ -368,6 +367,10 @@
             }
         },
 
+        async mounted() {
+            await this.$recaptcha.init()
+        },
+
 
         created(){
             if(this.authenticated){
@@ -402,6 +405,15 @@
 
             updateUser(){
                 this.bookingRequest.user_id = this.$store.state.auth.user.id;
+            },
+
+            async onSubmit() {
+                try {
+                    const token = await this.$recaptcha.execute('login')
+                    console.log('ReCaptcha token:', token)
+                } catch (error) {
+                    console.log('Login error:', error)
+                }
             },
 
             save(){
@@ -442,12 +454,33 @@
                     })
                     .catch(() => {
                         this.bookingRequest.gRecaptchaResponse = "";
+                        this.$recaptcha.reset();
                     })
             },
 
             close(){
                 this.$emit('close');
-            }
+            },
+
+            onError(error) {
+                console.log('Error happened:', error)	     
+            },
+            
+            async onSubmit() {	    
+                try {	    
+                    const token = await this.$recaptcha.getResponse()	 
+                    this.setToken(token)     
+                } catch (error) {	   
+                    console.log('Login error:', error)	   
+                }	     
+            },	
+
+            onSuccess (token) {	  
+                console.log('Succeeded:', token)	
+            },	    
+            onExpired() {
+                console.log('Expired')	   
+            }	
         }
     }
 </script>

@@ -9,7 +9,10 @@
                 @update="updateProp"
                 class="btn-primary btn-small" />
         </div>
-        <!-- <booking-form :artist-id="artist.id" :artist-pseudo="artist.pseudo" v-if="artist && bookingForm" @close="bookingForm = false"></booking-form> -->
+        <booking-form :artist-id="artist.id" 
+            :artist-pseudo="artist.pseudo" 
+            v-if="artist && bookingForm" 
+            @close="bookingForm = false" />
 
         <div class="md:flex items-start h-full md:px-6 md:pt-5 relative">
 
@@ -154,24 +157,24 @@
             </visible>
 
             <div class="md:flex-grow bg-white shadow-md pt-4">
-                <!-- <div class=" flex items-center justify-center border-b-2 border-gray-200">
+                <div class=" flex items-center justify-center border-b-2 border-gray-200">
                     <ul class="flex" style="margin:-2px;">
                         <li class="mr-3">
-                            <router-link :to="{name : 'artist.portfolio'}"  class="nav-tab">
+                            <nuxt-link :to="localePath({name : 'artists-slug-portfolio', params : {slug : artist.slug}})"  class="nav-tab">
                                 {{ $t("Portfolio") }}
-                            </router-link>
+                            </nuxt-link>
                         </li>
                         <li class="mr-3">
-                            <router-link :to="{name : 'artist.travels'}" class="nav-tab" href="#">
+                            <nuxt-link :to="localePath({name : 'artists-slug-events', params : {slug : artist.slug}})" class="nav-tab" href="#">
                                 {{ $t("Guest & Conventions") }}
-                            </router-link>
+                            </nuxt-link>
                         </li>
                     </ul>
                 </div>
 
                 <div class="px-4 py-3">
-                    <router-view :artist="artist"></router-view>
-                </div> -->
+                    <nuxt-child :artist="artist" />
+                </div>
             </div>
         </div>
     </div>
@@ -182,7 +185,7 @@
 
 import {tattooStyles} from '~/utilities/TattooVars';
 import Visible from '~/components/Visible';
-// import BookingForm from '~/components/bookings/BookingForm'
+import BookingForm from '~/components/bookings/BookingForm'
 import SubscribeButton from '~/components/forms/SubscribeButton'
 import ArtistPublishButton from '~/components/forms/ArtistPublishButton'
 
@@ -194,7 +197,7 @@ export default {
 
     components:{
         Visible,
-        // BookingForm,
+        BookingForm,
         SubscribeButton,
         ArtistPublishButton
     },
@@ -286,10 +289,35 @@ export default {
 
             return false;
         },
+    },
+
+    methods : {
+        bookArtist(){
+            if(!this.artist.bookable){
+
+                this.$message({
+                    type:'warning',
+                    message : this.$i18n.t("Désolé, {artist} a fermé les réservations pour le moment", {artist : this.artist.pseudo}),
+                    duration : 5000,
+                })
+
+                return false;
+            }
+
+            this.bookingForm = true;
+        },
+    },
+
+    metaInfo() {
+        return this.artist ? {
+            title : this.artist.pseudo + (this.location ? " · " + this.$i18n.t("Tatoueur")  + " " + this.location : "") + (this.serializedStyles != "" ? " · " + this.serializedStyles : ""),
+            meta: [
+                { 'property': 'og:title', 'content': this.$i18n.t("Découvrez {artist} sur WE Tattoo", {artist : this.artist.pseudo}), 'vmid': 'og:title'},
+                { 'property': 'og:site_name', 'content': `WE Tattoo`, 'vmid': 'og:site_name'},
+                { 'property': 'og:image', 'content': `${this.artist.avatar_url}`, 'vmid': 'og:image'},
+                { 'property': 'og:description', 'content': this.artist.bio, 'vmid': 'og:description'}
+            ]
+        } : {}
     }
 }
 </script>
-
-<style>
-
-</style>

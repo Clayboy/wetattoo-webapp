@@ -34,6 +34,7 @@ module.exports = {
       '@nuxtjs/axios',
       '@nuxtjs/auth',
       'nuxt-i18n',
+      '@nuxtjs/recaptcha',
       ['nuxt-fontawesome', {
         component: 'font-awesome-icon', 
         imports: [
@@ -61,6 +62,12 @@ module.exports = {
         ]
         }]
     ],
+    recaptcha: {
+    hideBadge: false, // Hide badge element (v3)
+    language: 'fr',   // Recaptcha language (v2)
+    siteKey: process.env.RECAPTCHA_V2_SITE_KEY,    // Site key for requests
+    version: 2     // Version
+    },
     i18n: {
         locales: [
             {
