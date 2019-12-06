@@ -19,13 +19,13 @@
             <aside id="artist-details" class="relative w-full md:w-1/5 bg-white shadow-md z-10 md:mr-4"  v-if="artist">
                 <div class="cover bg-home h-32 mb-16  shadow">
                     <div class="text-white flex justify-between px-4 pt-2">
-                        <!-- <router-link :to="{name: 'artists.list'}" v-if="!isCurrentUser">
+                        <nuxt-link :to="localePath('artists')" v-if="!isCurrentUser">
                             <font-awesome-icon :icon="['far', 'chevron-left']" class="text-2xl"></font-awesome-icon>
-                        </router-link>
+                        </nuxt-link>
                         <p v-else></p>
-                        <router-link :to="{name: 'profile.general'}" v-if="isCurrentUser" class="border bg-gray-900 border-gray-300 px-4 py-1 rounded">
+                        <nuxt-link :to="localePath({name: 'profile.general'})" v-if="isCurrentUser" class="border bg-gray-900 border-gray-300 px-4 py-1 rounded">
                             {{$t('Editer')}}
-                        </router-link> -->
+                        </nuxt-link>
                     </div>
                     <avatar :img="artist.avatar_url" :size="32" class="shadow flex-shrink-0 flex-grow-0 mb-3 mx-auto border-2" />
                 </div>
@@ -160,7 +160,7 @@
                 <div class=" flex items-center justify-center border-b-2 border-gray-200">
                     <ul class="flex" style="margin:-2px;">
                         <li class="mr-3">
-                            <nuxt-link :to="localePath({name : 'artists-slug-portfolio', params : {slug : artist.slug}})"  class="nav-tab">
+                            <nuxt-link :to="localePath({name : 'artists-slug', params : {slug : artist.slug}})"  class="nav-tab">
                                 {{ $t("Portfolio") }}
                             </nuxt-link>
                         </li>
@@ -212,7 +212,7 @@ export default {
 
     computed:{
         isCurrentUser(){
-            return false;
+            return this.$auth.loggedIn && this.$auth.user.profile_type == 'artist' && this.$auth.user.profile_id == this.artist.id;
         },
         hasSocial(){
             return this.artist.facebook || this.artist.instagram || this.artist.website;
