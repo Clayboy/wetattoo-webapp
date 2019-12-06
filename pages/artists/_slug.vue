@@ -182,7 +182,7 @@
 
 <script>
 
-
+import _ from 'lodash';
 import {tattooStyles} from '~/utilities/TattooVars';
 import Visible from '~/components/Visible';
 import BookingForm from '~/components/bookings/BookingForm'
