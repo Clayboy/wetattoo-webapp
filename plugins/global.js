@@ -23,7 +23,3 @@ Vue.use(TimeSelect);
 
 import moment from 'moment-timezone';
 Vue.prototype.$moment = moment;
-
-
-import LogRocket from 'logrocket';
-LogRocket.init('kjsrv2/we-tattoo');
