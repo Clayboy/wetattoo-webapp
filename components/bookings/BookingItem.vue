@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-link class="relative block md:flex md:items-center  px-4 py-2" :to="{name : 'bookings.show', params : {bookingid : booking.id}}">
+        <nuxt-link class="relative block md:flex md:items-center  px-4 py-2" :to="{name : 'app-bookings-id', params : {id : booking.id}}">
             <div class="flex-shrink-0 mr-2 flex items-center text-sm" v-if="status">
                 <font-awesome-icon :icon="status.icon" class="mr-1" :class="status.class"></font-awesome-icon>
                 <span class="visible md:hidden leading-none">{{ status.label }}</span>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="flex-shrink-0 ml-2 text-gray-600 text-xs w-12 text-right">{{ booking.updated_at | compact }}</div>
             </div>
-        </router-link>
+        </nuxt-link>
     </div>
 </template>
 

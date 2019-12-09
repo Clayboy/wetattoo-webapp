@@ -60,7 +60,7 @@
     @apply px-4 py-2 block text-center w-full;
 }
 
-.sidebar ul li a.router-link-exact-active {
+.sidebar ul li a.nuxt-link-exact-active {
     @apply bg-gray-900;
 }
 
@@ -98,6 +98,6 @@
     @apply bg-gray-200 border-gray-200;
 }
 
-.sidenav-item .sidenav-link.router-link-exact-active{
+.sidenav-item .sidenav-link.nuxt-link-exact-active{
     @apply border-indigo-800;
 }

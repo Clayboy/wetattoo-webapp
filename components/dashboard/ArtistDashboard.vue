@@ -13,13 +13,12 @@
                 <artist-onboarding class="relative mx-1 sm:mx-3 mb-6 -mt-2" v-if="!onboarded" @terminate="onboarded = true" />
 
                 <div class="flex items-stretch -mt-2">
-                    <div class="cursor-pointer bg-white px-4 py-4 rounded shadow text-center w-1/3 mx-1 sm:mx-3 z-10" @click.prevent="$router.push({name : 'bookings.list'})">
+                    <div class="cursor-pointer bg-white px-4 py-4 rounded shadow text-center w-1/3 mx-1 sm:mx-3 z-10" @click.prevent="$router.push({name : 'app-bookings'})">
                         <font-awesome-icon :icon="['fal', 'paper-plane']" class="text-lg mb-1"></font-awesome-icon>
                         <p class="font-medium text-2xl sm:text-4xl">{{ statistics.requests }}</p>
                         <p class="text-sm sm:text-base">
                             {{ $tc('Demandes en attente', statistics.requests) }}
                         </p>
-
                     </div>
                     <div class="bg-white px-4 py-4 rounded shadow text-center w-1/3 mx-1 sm:mx-3 z-10">
                         <font-awesome-icon :icon="['fal', 'user']" class="text-lg mb-1"></font-awesome-icon>

@@ -5,7 +5,7 @@
             <div class="sidebar flex text-2xl flex-col">
                 <ul class="sidebar-mainmenu h-full">
                     <li v-for="(item, index) in menu" :key="index" :class="item.class ? item.class : ''">
-                        <nuxt-link v-if="item.routeName" :to="{name : item.routeName, params : item.params != undefined ? item.params : {}}">
+                        <nuxt-link v-if="item.routeName" :to="{name : item.routeName, params : item.params != undefined ? item.params : {}, query : item.query != undefined ? item.query : {}}">
                             <font-awesome-icon :icon="['fal', item.icon]"></font-awesome-icon>
                         </nuxt-link>
                     </li>
@@ -53,7 +53,7 @@ export default {
                     // {routeName : 'portfolio',       icon : 'image-polaroid'},
                  // {routeName : 'bo.flashes',      icon : 'bolt'},
                     // {routeName : 'bo.travels',      icon : 'globe-stand'},
-                    // {routeName : 'bookings.list',   params : {status:"pending"}, icon : 'paper-plane'},
+                    {routeName : 'app-bookings',    query : {status:"pending"}, icon : 'paper-plane'},
                     {routeName : 'app-calendar',     icon : 'calendar-alt'},
                 ],
                 member : [

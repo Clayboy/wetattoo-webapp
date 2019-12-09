@@ -18,6 +18,9 @@
 </template>
 
 <script>
+
+    import Form from '@/utilities/Form'
+
     export default {
         props: {
             bookingid : {

@@ -25,6 +25,7 @@
 
 <script>
 
+    import Form from "@/utilities/Form"
     import Conversation from '@/components/Conversation';
 
     export default {
@@ -73,7 +74,7 @@
 
             remove(){
                 if(confirm(this.$i18n.t('Supprimer cette réponse ?'))){
-                    axios.delete(`/replies/${this.data.id}`)
+                    this.$axios.delete(`/replies/${this.data.id}`)
                         .then(response => {
                             this.$emit('removed')
                         })

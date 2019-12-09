@@ -49,6 +49,7 @@
     import ReplyForm from '@/components/ReplyForm';
     import Reply from '@/components/Reply';
     import {bookingStatus} from '@/utilities/TattooVars';
+    import { mapState } from 'vuex';
 
 
     export default {
@@ -80,17 +81,15 @@
 
         computed: {
 
+            ...mapState({
+                user : state => state.auth.user,
+                usertype : state => state.auth.user.profile_type,
+            }),
+
             canReply(){
                 return this.usertype == 'artist' // Artist can always comment
                     || (this.usertype == 'member' && this.bookingStatus == 'accepted') // Member can reply since request is accepted
                     || (this.usertype == 'member' && this.bookingStatus == 'pending' && this.activity.length) // Member can reply if artist need more infos & initiated conversation
-            },
-
-            usertype(){
-                return this.$store.getters['auth/usertype'];
-            },
-            user(){
-                return this.$store.state.auth.user;
             },
         },
 
@@ -110,7 +109,7 @@
             },
 
             fetchActivity(){
-                axios.get('bookings/' + this.bookingId + '/activity')
+                this.$axios.get('bookings/' + this.bookingId + '/activity')
                     .then(({data}) => this.activity = data);
             },
 

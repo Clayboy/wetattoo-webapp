@@ -101,6 +101,8 @@ module.exports = {
             'app/settings' : false,
             'app/home' : false,
             'app/calendar' : false,
+            'app/bookings/index' : false,
+            'app/bookings/_id' : false,
         },
         vueI18n: {
           fallbackLocale: 'fr',
