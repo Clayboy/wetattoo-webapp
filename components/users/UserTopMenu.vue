@@ -13,7 +13,7 @@
         <div class="user-menu group-hover:visible">
             <ul>
                 <li v-for="(item, index) in authMenu" :key="`usertopmenu-${index}`" class="my-1">
-                    <router-link class="user-menu-item" :to="item.route" v-text="item.label" />
+                    <nuxt-link class="user-menu-item" :to="item.route" v-text="item.label" />
                 </li>
             </ul>
             <hr class="hidden sm:block border-t mx-2 border-gray-200" />
@@ -29,9 +29,9 @@ export default {
     computed:{
         authMenu(){
             return [
-                {label : this.$i18n.t('Accueil'), route : {name : 'home'}},
+                {label : this.$i18n.t('Accueil'), route : {name : 'app-home'}},
                 // {label : this.$i18n.t('Profil'), route : {name : 'profile.general'}},
-                {label : this.$i18n.t('Préférences'), route : {name : 'settings.account'}},
+                {label : this.$i18n.t('Préférences'), route : {name : 'app-settings-account'}},
             ]
         },
     },

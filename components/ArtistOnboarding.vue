@@ -243,7 +243,8 @@
             finishOnboarding(){
                 axios.patch('/users/onboarding')
                     .then(({data}) => {
-                        this.$store.dispatch('auth/setUser', data.user);
+
+                        this.$auth.$storage.setState('user', data.user);
                         this.$emit('terminate')
                     })
             }

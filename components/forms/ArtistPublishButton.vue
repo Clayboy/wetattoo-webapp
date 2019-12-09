@@ -50,7 +50,7 @@
             toggle(){
                 let action = this.active ? 'delete' : 'put';
 
-                axios[action](this.endpoint)
+                this.$axios[action](this.endpoint)
                     .then((response) => {
 
                         this.active = !this.active
@@ -61,10 +61,9 @@
                             customClass: 'message-success'
                         })
 
-                        this.$store.dispatch('auth/setProfileProp', {
-                            prop : 'published',
-                            value : this.active
-                        });
+                        let user = JSON.parse(JSON.stringify(this.$auth.user));
+                        user.profile.published  = this.active;
+                        this.$auth.$storage.setState('user', user);
 
                         this.$emit('update', {
                             prop : 'published',

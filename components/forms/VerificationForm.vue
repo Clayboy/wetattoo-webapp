@@ -41,6 +41,7 @@
 </template>
 
 <script>
+    import Form from '@/utilities/Form';
     import { mapState } from 'vuex';
 
     export default {
@@ -55,8 +56,8 @@
 
         computed: {
             ...mapState({
-                artistId : state => state.auth.profile.id,
-                profile : state => state.auth.profile
+                artistId : state => state.auth.user.profile.id,
+                profile : state => state.auth.user.profile
             })
         },
 
@@ -74,10 +75,13 @@
 
                 this.verification.post(`/artists/${this.artistId}/verification`)
                     .then((data) => {
-                        this.$store.dispatch('auth/setProfileProp', {prop : 'siret', value : data.siret});
-                        this.$store.dispatch('auth/setProfileProp', {prop : 'verified', value : data.verified});
-                        this.$store.dispatch('auth/setProfileProp', {prop : 'verified_label', value : data.verified_label});
-                        this.$store.dispatch('auth/setProfileProp', {prop : 'certificate_url', value : data.certificate_url});
+
+                        let user = JSON.parse(JSON.stringify(this.$store.state.auth.user));
+                        user.profile.siret = data.siret;
+                        user.profile.verified = data.verified;
+                        user.profile.verified_label = data.verified_label;
+                        user.profile.certificate_url = data.certificate_url;
+                        this.$auth.$storage.setState('user', user);
 
                         this.$emit('submited');
                     })

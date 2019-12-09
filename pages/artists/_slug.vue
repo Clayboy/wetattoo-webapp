@@ -23,7 +23,7 @@
                             <font-awesome-icon :icon="['far', 'chevron-left']" class="text-2xl"></font-awesome-icon>
                         </nuxt-link>
                         <p v-else></p>
-                        <nuxt-link :to="localePath({name: 'profile.general'})" v-if="isCurrentUser" class="border bg-gray-900 border-gray-300 px-4 py-1 rounded">
+                        <nuxt-link :to="{name: 'app-profile-edit-general'}" v-if="isCurrentUser" class="border bg-gray-900 border-gray-300 px-4 py-1 rounded">
                             {{$t('Editer')}}
                         </nuxt-link>
                     </div>
@@ -306,6 +306,9 @@ export default {
 
             this.bookingForm = true;
         },
+        updateProp(payload){
+            Vue.set(this.artist, payload.prop, payload.value);
+        }
     },
 
     head() {

@@ -94,7 +94,12 @@ module.exports = {
                 fr : '/a-propos/tatoueurs',
             },
             'legal/terms' : false,
-            'legal/cgu' : false
+            'legal/cgu' : false,
+            'app/' : false,
+            'app/profile' : false,
+            'app/profile/edit' : false,
+            'app/settings' : false,
+            'app/home' : false,
         },
         vueI18n: {
           fallbackLocale: 'fr',
@@ -128,7 +133,8 @@ module.exports = {
             callback: '/auth/login',
             home: '/app/home'
           }
-        }
+        },
+        plugins: [ { src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js' ]
     },
     axios: {
         baseURL : process.env.API_URL,

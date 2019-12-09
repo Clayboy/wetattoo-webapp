@@ -5,20 +5,20 @@
             <div class="sidebar flex text-2xl flex-col">
                 <ul class="sidebar-mainmenu h-full">
                     <li v-for="(item, index) in menu" :key="index" :class="item.class ? item.class : ''">
-                        <router-link v-if="item.routeName" :to="{name : item.routeName, params : item.params != undefined ? item.params : {}}">
+                        <nuxt-link v-if="item.routeName" :to="{name : item.routeName, params : item.params != undefined ? item.params : {}}">
                             <font-awesome-icon :icon="['fal', item.icon]"></font-awesome-icon>
-                        </router-link>
+                        </nuxt-link>
                     </li>
                     <li  class="hidden sm:block flex-grow"></li>
                     <li>
-                        <router-link :to="profilePage" class="text-center h-full block">
+                        <nuxt-link :to="localePath(profilePage)" class="text-center h-full block">
                             <avatar :img="user.avatar_url" :size="8"></avatar>
-                        </router-link>
+                        </nuxt-link>
                     </li>
                     <li class="hidden sm:block">
-                        <router-link :to="{name : 'settings.account'}">
+                        <nuxt-link :to="{name : 'app-settings-account'}">
                             <font-awesome-icon :icon="['fal', 'cog']"></font-awesome-icon>
-                        </router-link>
+                        </nuxt-link>
                     </li>
                     <li class="hidden sm:block">
                         <button class="text-center w-full block" @click.prevent="$store.dispatch('auth/logout', '/')">
@@ -29,7 +29,7 @@
             </div>
 
             <div class="pb-6 member-content">
-                <slot></slot>
+                <nuxt />
             </div>
         </main>
     </div>
@@ -49,12 +49,12 @@ export default {
         return {
             menus : {
                 artist : [
-                //     {routeName : 'home',            icon : 'home'},
-                //     {routeName : 'portfolio',       icon : 'image-polaroid'},
-                //  // {routeName : 'bo.flashes',      icon : 'bolt'},
-                //     {routeName : 'bo.travels',      icon : 'globe-stand'},
-                //     {routeName : 'bookings.list',   params : {status:"pending"}, icon : 'paper-plane'},
-                //     {routeName : 'bo.calendar',     icon : 'calendar-alt'},
+                    {routeName : 'app-home',            icon : 'home'},
+                    // {routeName : 'portfolio',       icon : 'image-polaroid'},
+                 // {routeName : 'bo.flashes',      icon : 'bolt'},
+                    // {routeName : 'bo.travels',      icon : 'globe-stand'},
+                    // {routeName : 'bookings.list',   params : {status:"pending"}, icon : 'paper-plane'},
+                    // {routeName : 'bo.calendar',     icon : 'calendar-alt'},
                 ],
                 member : [
                     // {routeName : 'home', icon : 'home'},
@@ -69,7 +69,6 @@ export default {
 
         ...mapState({
             user : state => state.auth.user,
-            profile : state => state.auth.user.profile
         }),
 
         // ...mapGetters({
@@ -85,10 +84,10 @@ export default {
         },
 
         profilePage(){
-            if(this.usertype == 'artist'){
-                return {name : 'artist.portfolio', params : {artist : this.profile.slug}};
+            if(this.user.profile_type == 'artist'){
+                return {name : 'artists-slug', params : {slug : this.user.profile.slug}};
             }else{
-                return {name : 'profile.show'};
+                return {name : 'app-profile'};
             }
         }
     }

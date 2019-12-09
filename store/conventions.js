@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { reject } from 'q'
 
 // On définit les types de mutations possibles
 const types = {
@@ -51,9 +52,13 @@ export const actions = {
             dispatch('findInList', slug);
         }else{
             this.$axios.get(`/conventions/${slug}`)
-            .then(({data}) => {
-                commit(types.SET_CURRENT_CONVENTION, data);
-            })
+                .then(({data}) => {
+                    commit(types.SET_CURRENT_CONVENTION, data);
+                })
+                .catch((e) => {
+                    console.log('ici');
+                    error({ statusCode: 404, message: 'Convention not found' })
+                })
         }
     },
 

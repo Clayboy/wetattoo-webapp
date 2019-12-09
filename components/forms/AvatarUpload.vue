@@ -36,11 +36,24 @@
 
 <script>
 
-    import SlimCropper from 'vue-slim-cropper'
+    import Vue from 'vue'
     import { mapState } from 'vuex'
-    Vue.use(SlimCropper)
+
+    const SlimCropper = Vue.component('SlimCropper', {template : `<div></div>`});
+
+    if (process.browser) {
+        const SlimCropper = require('vue-slim-cropper')
+        console.log(SlimCropper);
+        // import SlimCropper from 'vue-slim-cropper'
+        Vue.use(SlimCropper)
+    }
+
+    console.log(SlimCropper)
 
     export default {
+        components : {
+            'SlimCropper' : SlimCropper
+        },
         data(){
             return {
                 avatar : this.$store.state.auth.user.avatar_url,

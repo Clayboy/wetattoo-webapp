@@ -82,7 +82,8 @@
     </div>
 </template>
 <script>
-
+    import Vue from 'vue'
+    import Form from '@/utilities/Form'
     import { mapState } from 'vuex';
     import { types } from '@/store/agenda';
 
@@ -90,7 +91,6 @@
         data (){
             return {
                 hours : [],
-                update : false,
                 form : new Form({
                     owner_id : '',
                     owner_type : '',
@@ -113,12 +113,12 @@
                 user            : state => state.auth.user
             }),
 
-            newform(){
-                bhform
+            update(){
+                return this.businessHours.length > 0;
             }
         },
 
-        mounted(){
+        beforeMount(){
 
             this.form.owner_id = this.user.profile_id;
             this.form.owner_type = this.user.profile_type;
@@ -131,16 +131,20 @@
                 date.add(30, 'minutes');
             }
 
+
             this.businessHours
-                .map((businessDay) => {
-                    businessDay.hasPause = businessDay.pause_start !== null;
-                    return businessDay;
-                })
                 .forEach((businessDay) => {
-                    let index = _.findIndex(this.form.businessHours, {day : businessDay.day});
+
+                    let bday = {...businessDay};
+                    console.log(bday);
+                    bday.hasPause = bday.pause_start !== null;
+
+                    let index = _.findIndex(this.form.businessHours, {day : bday.day});
+
+                    console.log(index);
 
                     if(index != -1){
-                        Vue.set(this.form.businessHours, index, businessDay);
+                        Vue.set(this.form.businessHours, index, bday);
                     }
                 })
 
@@ -156,7 +160,7 @@
                 this.form.businessHours.push(sunday);
             }
 
-            this.update = this.businessHours.length > 0;
+            this.$forceUpdate();
         },
 
         methods : {
@@ -186,7 +190,6 @@
 
                 this.form[action]('/businesshours')
                     .then(data => {
-                        this.update = true;
                         this.$store.commit(`agenda/${types.SET_BUSINESS_HOURS}`, data.businessHours)
                         this.$emit('close');
                         this.$emit('updated');

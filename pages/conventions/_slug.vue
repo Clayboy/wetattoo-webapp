@@ -148,8 +148,11 @@
             }
         },
 
-        created(){
-            this.$store.dispatch('conventions/find', this.$route.params.slug)
+        fetch({store, params}){
+                store.dispatch('conventions/find', params.slug)
+                    .catch(err => {
+                        error({ statusCode: 404, message: 'Post not found' })
+                    })
         },
 
         methods:{

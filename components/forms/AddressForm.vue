@@ -97,7 +97,7 @@
 </template>
 
 <script>
-    import places from 'places.js';
+    import Form from '@/utilities/Form'
     import _ from 'lodash';
 
     export default{
@@ -179,30 +179,35 @@
             //     this.address = this.prefill;
             // }
 
-            this.placesAutocomplete = places({
-                container: document.querySelector('#address-input'),
-                type: this.type,
-                templates: {
-                    value : suggestion => suggestion.name
-                }
-            })
+            if (typeof window !== 'undefined') {
+                const places = require('places.js'); 
+                
+                this.placesAutocomplete = places({
+                    container: document.querySelector('#address-input'),
+                    type: this.type,
+                    templates: {
+                        value : suggestion => suggestion.name
+                    }
+                })
 
-            this.placesAutocomplete.on('change', e => {
+                this.placesAutocomplete.on('change', e => {
 
-                this.address.setData(_.pick(e.suggestion, ['name', 'nameMore', 'city', 'administrative', 'latlng', 'country','postcode']));
+                    this.address.setData(_.pick(e.suggestion, ['name', 'nameMore', 'city', 'administrative', 'latlng', 'country','postcode']));
 
-                this.address.country_code = e.suggestion.countryCode;
-                if(this.type == 'city'){
-                    this.address.city = e.suggestion.name;
-                }
+                    this.address.country_code = e.suggestion.countryCode;
+                    if(this.type == 'city'){
+                        this.address.city = e.suggestion.name;
+                    }
 
-                this.address.lat = e.suggestion.latlng.lat;
-                this.address.lng = e.suggestion.latlng.lng;
+                    this.address.lat = e.suggestion.latlng.lat;
+                    this.address.lng = e.suggestion.latlng.lng;
 
-                this.$emit('input', this.address);
-            });
+                    this.$emit('input', this.address);
+                });
 
-            this.placesAutocomplete.on('clear', e => this.resetAddress());
+                this.placesAutocomplete.on('clear', e => this.resetAddress());
+            }
+
         },
 
     }
