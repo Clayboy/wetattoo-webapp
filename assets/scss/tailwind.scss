@@ -83,8 +83,8 @@ html {
     }
 }
 
-// @import '../../node_modules/vue-datetime/dist/vue-datetime.min.css';
-// @import '../../node_modules/v-calendar/lib/v-calendar.min.css';
+@import '../../node_modules/vue-datetime/dist/vue-datetime.min.css';
+@import '../../node_modules/v-calendar/lib/v-calendar.min.css';
 @import '../../node_modules/element-ui/lib/theme-chalk/index.css';
 @import './components/navigation.scss';
 @import './components/avatars.scss';

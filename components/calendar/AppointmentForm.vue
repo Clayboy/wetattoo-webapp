@@ -132,6 +132,7 @@
 </template>
 
 <script>
+    import Form from '@/utilities/Form'
     import RightPanel   from '@/components/layout/RightPanel';
     import TheCalendar  from '@/components/calendar/Calendar';
     import SlotFinder   from '@/components/calendar/SlotFinder';
@@ -145,7 +146,8 @@
         components : {
             RightPanel,
             TheCalendar,
-            SlotFinder
+            SlotFinder,
+            Datetime
         },
         props : {
             withCalendar : {

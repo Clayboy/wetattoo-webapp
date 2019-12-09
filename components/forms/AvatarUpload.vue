@@ -42,7 +42,7 @@
     const SlimCropper = Vue.component('SlimCropper', {template : `<div></div>`});
 
     if (process.browser) {
-        const SlimCropper = require('vue-slim-cropper')
+        const SlimCropper = require('vue-slim-cropper').default
         console.log(SlimCropper);
         // import SlimCropper from 'vue-slim-cropper'
         Vue.use(SlimCropper)

@@ -45,21 +45,22 @@
                     </div>
                 </div>
             </div>
-
-            <v-date-picker
-                v-show="displayCalendar"
-                class="border-0"
-                :attributes="attrs"
-                type="single"
-                v-model="currentDate"
-                tint-color="#553c9a"
-                :from-page.sync="fromPage"
-                :disabled-dates='{ weekdays: closedDays }'
-                is-inline
-                is-expanded
-                @input="setDate">
-                    <template v-slot:header><div class="h-px">&nbsp;</div></template>
-            </v-date-picker>
+            <no-ssr>
+                <v-date-picker
+                    v-show="displayCalendar"
+                    class="border-0"
+                    :attributes="attrs"
+                    type="single"
+                    v-model="currentDate"
+                    tint-color="#553c9a"
+                    :from-page.sync="fromPage"
+                    :disabled-dates='{ weekdays: closedDays }'
+                    is-inline
+                    is-expanded
+                    @input="setDate">
+                        <template v-slot:header><div class="h-px">&nbsp;</div></template>
+                </v-date-picker>
+            </no-ssr>
         </div>
 
         <full-calendar
@@ -93,12 +94,39 @@
 
 
 <script>
-    import FullCalendar from "@fullcalendar/vue";
-    import dayGridPlugin from "@fullcalendar/daygrid";
-    import timeGridPlugin from "@fullcalendar/timegrid";
-    import listPlugin from '@fullcalendar/list';
-    import interactionPlugin from "@fullcalendar/interaction";
-    import momentTimezonePlugin from '@fullcalendar/moment-timezone';
+
+
+    
+    let components = {};
+    let calendarPlugins = {};
+
+    if(process.browser) {
+        const FullCalendar = require("@fullcalendar/vue").default;
+        console.log(FullCalendar);
+        components = {
+            FullCalendar
+        }
+
+        const dayGridPlugin  = require("@fullcalendar/daygrid").default
+        const timeGridPlugin  = require("@fullcalendar/timegrid").default
+        const listPlugin  = require('@fullcalendar/list').default
+        const interactionPlugin  = require("@fullcalendar/interaction").default
+        const momentTimezonePlugin  = require('@fullcalendar/moment-timezone').default
+
+        calendarPlugins = [
+            // plugins must be defined in the JS
+            dayGridPlugin,
+            timeGridPlugin,
+            interactionPlugin, // needed for dateClick
+            momentTimezonePlugin,
+            listPlugin
+        ]
+    }
+    // import dayGridPlugin from "@fullcalendar/daygrid";
+    // import timeGridPlugin from "@fullcalendar/timegrid";
+    // import listPlugin from '@fullcalendar/list';
+    // import interactionPlugin from "@fullcalendar/interaction";
+    // import momentTimezonePlugin from '@fullcalendar/moment-timezone';
 
     import enLocale from '@fullcalendar/core/locales/en-gb';
     import frLocale from '@fullcalendar/core/locales/fr';
@@ -111,6 +139,7 @@
 
 
     import { mapGetters, mapState } from 'vuex';
+    import Vue from 'vue'
 
 
 
@@ -122,9 +151,7 @@
     };
 
     export default {
-        components: {
-            FullCalendar, // make the <FullCalendar> tag available
-        },
+        components : components,
 
         props:{
             compact: {
@@ -170,14 +197,7 @@
                         enLocale,
                         frLocale
                     ],
-                    calendarPlugins: [
-                        // plugins must be defined in the JS
-                        dayGridPlugin,
-                        timeGridPlugin,
-                        interactionPlugin, // needed for dateClick
-                        momentTimezonePlugin,
-                        listPlugin
-                    ],
+                    calendarPlugins : calendarPlugins,
                     calendarWeekends: true,
                     events : [],
                 },
@@ -199,15 +219,15 @@
 
 
         created(){
-            Event.$on('agenda:gotodate', (payload) => {
+            this.$bus.$on('agenda:gotodate', (payload) => {
                 this.$refs.fullCalendar.getApi().gotoDate(payload.date);
                 this.highlightDay(payload.date);
             })
 
-            Event.$on('appointment:add', (payload) => {
+            this.$bus.$on('appointment:add', (payload) => {
                 this.addEvent(payload);
             })
-            Event.$on('appointment:remove', (payload) => {
+            this.$bus.$on('appointment:remove', (payload) => {
                 this.removeEvent(payload);
             })
         },
@@ -220,7 +240,7 @@
 
             fetchAppointments(infos, successCallback, failureCallback){
 
-                axios.get('/appointments', {
+                this.$axios.get('/appointments', {
                         params : {
                             start : this.$moment(infos.start).format('YYYY-MM-DD'),
                             end : this.$moment(infos.end).format('YYYY-MM-DD'),
@@ -304,9 +324,9 @@
                     month : this.$moment(event.view.currentStart).format('M'),
                     year : this.$moment(event.view.currentStart).format('YYYY')
                 };
-                if(this.fromPage.month != newPage.month || this.fromPage.year != newPage.year){
-                    Vue.set(this, 'fromPage', newPage);
-                }
+                // if(this.fromPage.month != newPage.month || this.fromPage.year != newPage.year){
+                //     Vue.set(this, 'fromPage', newPage);
+                // }
 
                 let index = _.findIndex(this.attrs, {key:'week'});
 

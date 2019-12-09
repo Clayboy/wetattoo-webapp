@@ -100,6 +100,7 @@ module.exports = {
             'app/profile/edit' : false,
             'app/settings' : false,
             'app/home' : false,
+            'app/calendar' : false,
         },
         vueI18n: {
           fallbackLocale: 'fr',
@@ -143,8 +144,12 @@ module.exports = {
     },
     plugins: [
         '~/plugins/global',
+        '~/plugins/filters',
         '~/plugins/tattoo-vars',
         // '~/plugins/i18n',
-        '~/plugins/axios'
+        '~/plugins/axios',
+        '~/plugins/bus',
+        { src: '~/plugins/v-calendar', ssr: false },
+
       ]
   }

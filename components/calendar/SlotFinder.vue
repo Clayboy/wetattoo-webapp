@@ -82,6 +82,7 @@
 
 
 <script>
+    import Form from '@/utilities/Form'
     import { Datetime } from 'vue-datetime';
 
     export default {
@@ -147,7 +148,7 @@
 
         methods : {
             searchSlot(){
-                axios.get(`/artists/${this.user.profile_id}/slots`, {
+                this.$axios.get(`/artists/${this.user.profile_id}/slots`, {
                     params : {
                         duration : this.slotform.duration,
                         start : this.slotform.start,
@@ -167,7 +168,7 @@
             },
 
             goto(date){
-                Event.$emit('agenda:gotodate', {date : date.toDate(), duration : this.slotform.duration});
+                this.$bus.$emit('agenda:gotodate', {date : date.toDate(), duration : this.slotform.duration});
                 this.display = false;
             }
         }

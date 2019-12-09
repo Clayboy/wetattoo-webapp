@@ -54,7 +54,7 @@ export default {
                  // {routeName : 'bo.flashes',      icon : 'bolt'},
                     // {routeName : 'bo.travels',      icon : 'globe-stand'},
                     // {routeName : 'bookings.list',   params : {status:"pending"}, icon : 'paper-plane'},
-                    // {routeName : 'bo.calendar',     icon : 'calendar-alt'},
+                    {routeName : 'app-calendar',     icon : 'calendar-alt'},
                 ],
                 member : [
                     // {routeName : 'home', icon : 'home'},
@@ -69,6 +69,7 @@ export default {
 
         ...mapState({
             user : state => state.auth.user,
+            usertype : state => state.auth.user.profile_type,
         }),
 
         // ...mapGetters({
