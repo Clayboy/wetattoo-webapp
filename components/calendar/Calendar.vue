@@ -102,7 +102,6 @@
 
     if(process.browser) {
         const FullCalendar = require("@fullcalendar/vue").default;
-        console.log(FullCalendar);
         components = {
             FullCalendar
         }
