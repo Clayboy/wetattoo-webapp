@@ -17,7 +17,9 @@
 
         <transition name="slim-fade">
             <div v-show="cropShow" class="crop-wrap">
-                <SlimCropper ref="cropper" :src="avatarSrc" :cropper-options="{cropBoxResizable : false}"></SlimCropper>
+                <no-ssr>
+                    <SlimCropper ref="cropper" :src="avatarSrc" :cropper-options="{cropBoxResizable : false}"></SlimCropper>
+                </no-ssr>
 
 
                 <div class="btn-box">
@@ -39,21 +41,17 @@
     import Vue from 'vue'
     import { mapState } from 'vuex'
 
-    const SlimCropper = Vue.component('SlimCropper', {template : `<div></div>`});
+    let components = {}
 
     if (process.browser) {
         const SlimCropper = require('vue-slim-cropper').default
-        console.log(SlimCropper);
-        // import SlimCropper from 'vue-slim-cropper'
         Vue.use(SlimCropper)
+        components = {SlimCropper};
+        // import SlimCropper from 'vue-slim-cropper'
     }
 
-    console.log(SlimCropper)
-
     export default {
-        components : {
-            'SlimCropper' : SlimCropper
-        },
+        components : components,
         data(){
             return {
                 avatar : this.$store.state.auth.user.avatar_url,
@@ -96,7 +94,7 @@
                 let data = new FormData();
                 data.append('avatar', img);
 
-                axios.post(`/users/${this.user.id}/avatar`, data)
+                this.$axios.post(`/users/${this.user.id}/avatar`, data)
                         .then(({data}) => {
                             this.$message({
                                 message: this.$i18n.t('Votre image de profil est mise à jour.'),
@@ -104,7 +102,11 @@
                                 customClass: 'bg-teal-100 border-0 border-t-4 border-teal-500 rounded-none rounded-b text-teal-900 px-4 py-3 shadow-md'
                             })
 
-                            this.$store.commit('auth/SET_USER_AVATAR', data.avatar);
+                            let user = JSON.parse(JSON.stringify(this.$auth.user));
+                            user.avatar_path  = data.avatar.path;
+                            user.avatar_url  = data.avatar.url;
+                            this.$auth.$storage.setState('user', user);
+                            
                             this.avatar = data.avatar.url;
 
                             this.avatarSrc = null;
