@@ -108,6 +108,7 @@
                         @subscribed="artist.subscriptions_count++"
                         @unsubscribed="artist.subscriptions_count--">
                     </subscribe-button>
+                    
                     <button @click.prevent="bookArtist"
                         class="w-1/2 btn btn-primary"
                         :disabled="!artist.bookable"

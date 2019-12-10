@@ -57,9 +57,9 @@ export default {
                     {routeName : 'app-calendar',     icon : 'calendar-alt'},
                 ],
                 member : [
-                    // {routeName : 'home', icon : 'home'},
-                    // {routeName : 'artists.list', icon : 'compass'},
-                    // {routeName : 'bookings.list', params : {status:"pending"}, icon : 'paper-plane'},
+                    {routeName : 'app-home', icon : 'home'},
+                    {routeName : 'artists', icon : 'compass'},
+                    {routeName : 'app-bookings', query : {status:"pending"}, icon : 'paper-plane'},
                 ]
             }
         }

@@ -58,7 +58,7 @@
 
             fetchFeed() {
                 this.loading = true;
-                axios.get('/users/feed', {
+                this.$axios.get('/users/feed', {
                     params : {
                         page : this.nextPage
                     }

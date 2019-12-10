@@ -24,16 +24,16 @@
             </ul>
 
             <p class="text-center mb-1">
-                <router-link :to="{name:'register'}" class="btn btn-primary inline-block">
+                <router-link :to="localePath({name:'auth-register-type'})" class="btn btn-primary inline-block" @click="$emit('close')">
                     {{ $t('Créer un compte gratuit') }}
                 </router-link>
             </p>
             <p class="text-center text-xs">
                 {{ $t('Vous avez déjà un compte ?') }}
 
-                <router-link :to="{name:'login'}" class="text-blue-500">
+                <nuxt-link :to="localePath({name:'auth-login'})" class="text-blue-500">
                     {{$t('Connexion')}}
-                </router-link>.
+                </nuxt-link>.
             </p>
         </div>
     </div>

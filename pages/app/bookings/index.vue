@@ -64,6 +64,7 @@
     import ProjectForm from '@/components/bookings/ProjectForm';
     import Paginator from '@/components/Paginator';
     import {bookingStatus} from '@/utilities/TattooVars';
+import { mapState } from 'vuex';
 
     export default {
         layout : 'member',
@@ -91,15 +92,11 @@
             }
         },
         computed:{
-            artistId(){
-                return this.$store.state.auth.profile.id;
-            },
-            usertype(){
-                return this.$store.getters['auth/usertype'];
-            },
-            user(){
-                return this.$store.state.auth.user;
-            },
+            ...mapState({
+                user : state => state.auth.user,
+                usertype : state => state.auth.user.profile_type,
+                artistId : state => state.auth.user.profile.id,
+            }),
             current(){
                 return this.nav.find(item => item.name == this.status)
             }

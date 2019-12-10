@@ -26,6 +26,10 @@
 
         methods : {
             subscribe(){
+                if(!this.$auth.loggedIn){
+                    this.$bus.$emit('register:invite');
+                    return
+                }
 
                 let requestTye = this.isActive ? 'delete' : 'post';
 

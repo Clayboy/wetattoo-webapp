@@ -60,7 +60,7 @@
             </div>
             <div class="md:flex md:flex-wrap md:-mx-2 mb-3">
                 <nuxt-link v-for="artist in artists"
-                    :to="localePath({name : 'artists-slug', params:{slug : artist.slug}})"
+                    :to="{name : 'artists-slug', params:{slug : artist.slug}}"
                     :key="artist.slug"
                     class="md:w-1/2 lg:w-1/3 p-2 block cursor-pointer">
                     <artist-card :artist="artist" />
@@ -86,6 +86,9 @@
     import CountrySelect from "@/components/forms/CountrySelect";
 
     export default {
+        layout({$auth}){
+            return $auth.loggedIn ? 'member' : 'default'
+        },
         data(){
             return {
                 filterMode: false,

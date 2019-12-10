@@ -118,7 +118,7 @@
         computed:{
             menu (){
                 return [
-                    {label : this.$i18n.t('Artistes'), route : this.localePath('artists')},
+                    {label : this.$i18n.t('Artistes'), route : {name : 'artists'}},
                     {label : this.$i18n.t('Conventions'), route : this.localePath('conventions')}
                 ]
             },

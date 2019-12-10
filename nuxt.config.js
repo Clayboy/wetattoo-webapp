@@ -101,6 +101,8 @@ module.exports = {
             'app/settings' : false,
             'app/home' : false,
             'app/calendar' : false,
+            'artists/index' : false,
+            'artists/_slug' : false,
             'app/bookings/index' : false,
             'app/bookings/_id' : false,
         },

@@ -5,7 +5,7 @@
             <div class="w-1/3 sm:w-2/5 flex-grow">
                 <ul class="hidden sm:flex items-center justify-end main-nav mt-2 sm:mt-auto text-right">
                     <li v-for="(item, index) in menu" :key="`large-menu-${index}`">
-                        <router-link :to="localePath(item.route)" v-text="item.label" />
+                        <router-link :to="item.route" v-text="item.label" />
                     </li>
                 </ul>
             </div>
@@ -114,9 +114,9 @@
         computed:{
             ...mapGetters({
                 menu : 'menu',
-        }),
+            }),
 
-...mapState({
+            ...mapState({
                 user: state => state.auth.user
             }),
         },
