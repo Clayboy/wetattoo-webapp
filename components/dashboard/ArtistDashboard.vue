@@ -62,7 +62,7 @@
                             <h5 class="font-light text-lg mb-2">
                                 {{ $t("Lien vers votre page artiste") }}
                             </h5>
-                            <router-link class="text-blue-500" :to="{name:'artist.portfolio', params:{artist:profile.slug}}">
+                            <router-link class="text-blue-500" :to="{name:'artists-slug', params:{slug:profile.slug}}">
                                 https://we-tattoo.com/artists/{{profile.slug}}
                             </router-link>
 
