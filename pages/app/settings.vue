@@ -9,13 +9,13 @@
         <div class="relative md:flex">
             <div class="md:w-1/4 md:mr-4 left-0 w-full md:relative">
                 <ul class="sidenav">
-                    <li v-for="item in submenu" class="sidenav-item md:w-full" :class="flexClass" :key="item.name">
-                        <nuxt-link class="sidenav-link" :to="{name: item.name}">
-                            <font-awesome-icon class="md:mr-3 text-lg" :icon="['fal', '']"></font-awesome-icon>
+                    <li v-for="item in tabs" class="sidenav-item md:w-full" :class="flexClass" :key="item.name">
+                        <nuxt-link class="sidenav-link" :to="{name : item.route}">
+                            <font-awesome-icon class="md:mr-3 text-lg" :icon="['fal', item.icon]"></font-awesome-icon>
                             <div class="text-xs sm:text-base">
-                                {{ item.name }}
+                                {{ item.label }}
                                 <p class="hidden sm:block text-gray-500 text-xs">
-                                    <!-- {{ item.meta.description }} -->
+                                    {{ item.description }}
                                 </p>
                             </div>
                         </nuxt-link>
@@ -35,7 +35,29 @@
         layout: 'member',
         data () {
             return {
-                nestedRoutes: []
+                nestedRoutes: [],
+
+                tabs : [
+                    {
+                        route : 'app-settings-account',
+                        label : 'Compte',
+                        icon : 'cog',
+                        description : 'Vos informations de compte : nom, langue, email',
+                    },
+                    {
+                        route : 'app-settings-security',
+                        label : 'Sécurité',
+                        icon : 'shield',
+                        description : 'Gestion du mot de passe',
+                    },
+                    {
+                        route : 'app-settings-billing',
+                        label : 'Abonnement',
+                        icon : 'credit-card',
+                        description : 'votre offre et vos factures',
+                    },
+
+                ]
             }
         },
         created(){

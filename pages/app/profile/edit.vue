@@ -9,13 +9,13 @@
         <div class="relative md:flex">
             <div class="md:w-1/4 md:mr-4 left-0 w-full md:relative">
                 <ul class="sidenav">
-                    <li v-for="item in submenu" class="sidenav-item md:w-full" :class="flexClass" :key="item.name">
-                        <nuxt-link class="sidenav-link" :to="{name: item.name}">
-                            <font-awesome-icon class="md:mr-3 text-lg" :icon="['fal', '']"></font-awesome-icon>
+                    <li v-for="item in userTabs" class="sidenav-item md:w-full" :class="flexClass" :key="item.name">
+                        <nuxt-link class="sidenav-link" :to="{name: item.route}">
+                            <font-awesome-icon class="md:mr-3 text-lg" :icon="['fal', item.icon]"></font-awesome-icon>
                             <div class="text-xs sm:text-base">
-                                {{ item.name }}
+                                {{ item.label }}
                                 <p class="hidden sm:block text-gray-500 text-xs">
-                                    <!-- {{ item.meta.description }} -->
+                                    {{ item.description }}
                                 </p>
                             </div>
                         </nuxt-link>
@@ -35,9 +35,40 @@
         layout: 'member',
         data () {
             return {
-                nestedRoutes: []
+                nestedRoutes: [],
+                tabs : [
+                    {
+                        route : 'app-profile-edit-general',
+                        userTypes : ['artist', 'member'],
+                        label : 'Général',
+                        icon : 'user',
+                        description : 'Détails affichés sur votre profil',
+                    },
+                    // {
+                    //     route : 'app-profile-edit-location',
+                    //     label : 'Abonnement',
+                    //     icon : 'credit-card',
+                    //     description : 'votre offre et vos factures',
+                    // },
+                    {
+                        route : 'app-profile-edit-agenda',
+                        userTypes : ['artist'],
+                        label : 'Horaires',
+                        icon : 'calendar-alt',
+                        description : 'Vos horaires de travail',
+                    },
+                    {
+                        route : 'app-profile-edit-verification',
+                        userTypes : ['artist'],
+                        label : 'Vérification',
+                        icon : 'check-circle',
+                        description : 'Nous vérifions vos infos tatoueur',
+                    },
+
+                ]
             }
         },
+
         created(){
             this.$router.options.routes.forEach((routeOption) => {
                 if (routeOption.path.startsWith(this.$route.path)) {
@@ -51,6 +82,10 @@
         computed:{
             usertype(){
                 return this.$store.$auth.user.profile_type
+            },
+
+            userTabs(){
+                return this.tabs.filter(tab => tab.userTypes.includes(this.usertype))
             },
 
             parentMenu(){
