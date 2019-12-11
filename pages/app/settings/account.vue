@@ -60,7 +60,9 @@
             </div>
         </div>
         <div class="flex justify-center">
-            <button class="button">Enregistrer</button>
+            <button class="button">
+                {{ $t('Enregistrer') }}
+            </button>
         </div>
     </form>
 </template>
@@ -68,6 +70,7 @@
 
     import Form from '@/utilities/Form'
     import TimezonePicker from '@/components/forms/TimezonePicker';
+    import {mapState} from 'vuex'
 
     export default {
         components : {
@@ -86,14 +89,24 @@
                 }),
             }
         },
+        computed :{
+            ...mapState({
+                userId : state => state.auth.user.id,
+                profile : state => state.auth.user.profile
+            })
+        },
         methods:{
             updateUser(){
 
-                this.user.put(`/users/${this.$store.state.auth.user.id}`)
+                this.user.put(`/users/${this.userId}`)
                     .then((data) => {
-                        this.$auth.$storage.setState('user', data);
 
-                        this.$store.dispatch('setLanguage', this.user.locale);
+                        let updatedUser = data;
+                        updatedUser.profile = this.profile;
+                        this.$auth.$storage.setState('user', updatedUser);
+
+                        console.log(this.$auth.user.locale);
+                        this.$i18n.setLocale(this.$auth.user.locale);
 
                         this.$message({
                             message: 'Vos informations personnelles ont été mise à jour.',
