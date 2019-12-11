@@ -153,7 +153,10 @@
                 </div>
             </div>
         </div>
-        <appointment-form v-if="appointmentForm" @created="appendAppointment" @close="appointmentForm = false" :prefill="appointment"></appointment-form>
+        <appointment-form v-if="appointmentForm" 
+            @created="appendAppointment" 
+            @close="appointmentForm = false" 
+            :prefill="appointment"></appointment-form>
     </div>
 </template>
 
