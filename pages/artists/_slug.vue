@@ -19,7 +19,7 @@
             <aside id="artist-details" class="relative w-full md:w-1/5 bg-white shadow-md z-10 md:mr-4"  v-if="artist">
                 <div class="cover bg-home h-32 mb-16  shadow">
                     <div class="text-white flex justify-between px-4 pt-2">
-                        <nuxt-link :to="localePath('artists')" v-if="!isCurrentUser">
+                        <nuxt-link :to="{name : 'artists'}" v-if="!isCurrentUser">
                             <font-awesome-icon :icon="['far', 'chevron-left']" class="text-2xl"></font-awesome-icon>
                         </nuxt-link>
                         <p v-else></p>

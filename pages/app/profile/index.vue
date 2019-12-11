@@ -6,7 +6,7 @@
         <aside class="relative bg-white"  v-if="user">
             <div class="cover bg-home h-32 mb-16 shadow">
                 <div class="text-white flex justify-end px-4 pt-2">
-                    <router-link :to="{name: 'profile.general'}" class="border bg-gray-900 border-gray-300 px-4 py-1 rounded">
+                    <router-link :to="{name: 'app-profile-edit-general'}" class="border bg-gray-900 border-gray-300 px-4 py-1 rounded">
                         {{$t('Editer')}}
                     </router-link>
                 </div>
@@ -47,15 +47,15 @@
                         </router-link>
                     </li> -->
                     <li class="mr-3">
-                        <router-link :to="{name : 'profile.subscriptions'}" class="nav-tab" href="#">
+                        <nuxt-link :to="({name : 'app-profile-index-subscriptions'})" class="nav-tab" href="#">
                             {{ $t("Abonnements") }}
-                        </router-link>
+                        </nuxt-link>
                     </li>
                 </ul>
             </div>
 
             <div class="sm:px-4 sm:py-3">
-                <router-view :user="user"></router-view>
+                <nuxt-child :user="user"></nuxt-child>
             </div>
         </div>
     </div>

@@ -97,6 +97,8 @@ module.exports = {
             'legal/cgu' : false,
             'app/' : false,
             'app/profile' : false,
+            'app/profile/index' : false,
+            'app/profile/subscriptions' : false,
             'app/profile/edit' : false,
             'app/settings' : false,
             'app/home' : false,

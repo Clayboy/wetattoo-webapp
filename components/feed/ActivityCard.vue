@@ -5,9 +5,9 @@
                 <avatar :img="activity.artist.avatar_url" class="mr-2" :size="10"></avatar>
                 <div>
                     <p>
-                        <router-link :to="{name : 'artist.portfolio', params : {artist : activity.artist.id}}"  class="font-medium leading-tight">
+                        <nuxt-link :to="{name : 'artists-slug', params : {slug : activity.artist.slug}}"  class="font-medium leading-tight">
                             {{ activity.artist.pseudo }}
-                        </router-link>
+                        </nuxt-link>
                         <span class="text-gray-500">
                             <slot name="title"></slot>
                         </span>

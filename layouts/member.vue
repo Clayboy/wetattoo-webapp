@@ -11,7 +11,7 @@
                     </li>
                     <li  class="hidden sm:block flex-grow"></li>
                     <li>
-                        <nuxt-link :to="localePath(profilePage)" class="text-center h-full block">
+                        <nuxt-link :to="profilePage" class="text-center h-full block">
                             <avatar :img="user.avatar_url" :size="8"></avatar>
                         </nuxt-link>
                     </li>
@@ -84,7 +84,7 @@ export default {
             if(this.user.profile_type == 'artist'){
                 return {name : 'artists-slug', params : {slug : this.user.profile.slug}};
             }else{
-                return {name : 'app-profile'};
+                return ({name : 'app-profile'});
             }
         }
     }
