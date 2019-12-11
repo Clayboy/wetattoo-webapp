@@ -52,7 +52,7 @@
                 <h2 class="text-2xl font-thin mb-2 border-b border-gray-400 capitalize">{{ categ.title }}</h2>
                 <div class="flex items-stretch flex-wrap">
                     <div div v-for="conv in categ.conventions" :key="conv.id" class="lg:w-1/4 w-1/2 p-2">
-                        <nuxt-link :to="localePath({name:'conventions-slug', params: {slug : conv.slug}})" >
+                        <nuxt-link :to="{name:'conventions-slug', params: {slug : conv.slug}}" >
                             <convention-card :conv="conv"></convention-card>
                         </nuxt-link>
                     </div>

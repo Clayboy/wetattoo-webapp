@@ -138,13 +138,13 @@
                     </h3>
 
                     <div class="flex items-center justify-center">
-                        <router-link :to="{name : ''}" class="btn btn-primary-outline mx-3">
+                        <nuxt-link :to="{name : 'app-bookings'}" class="btn btn-primary-outline mx-3">
                             {{ $t('Gérez vos projets') }}
-                        </router-link>
+                        </nuxt-link>
 
-                        <router-link :to="{name : ''}" class="btn btn-primary-outline mx-3">
+                        <nuxt-link :to="{name : 'app-calendar'}" class="btn btn-primary-outline mx-3">
                             {{ $t('Organisez votre agenda') }}
-                        </router-link>
+                        </nuxt-link>
                     </div>
                 </div>
 
@@ -178,8 +178,8 @@
 
         computed: {
             ...mapState({
-                artistId : state => state.auth.profile.id,
-                profile : state => state.auth.profile,
+                artistId : state => state.auth.user.profile.id,
+                profile : state => state.auth.user.profile,
                 user : state => state.auth.user
             }),
 
@@ -241,10 +241,11 @@
             },
 
             finishOnboarding(){
-                axios.patch('/users/onboarding')
+                this.$axios.patch('/users/onboarding')
                     .then(({data}) => {
-
-                        this.$auth.$storage.setState('user', data.user);
+                        let user = data.user;
+                        user.profile = this.profile;
+                        this.$auth.$storage.setState('user', user);
                         this.$emit('terminate')
                     })
             }

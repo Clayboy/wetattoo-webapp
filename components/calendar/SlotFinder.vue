@@ -117,7 +117,7 @@
             },
 
             freeFrom(){
-                if (this.lastAppointment.end != undefined){
+                if (this.lastAppointment != null){
                     return this.$moment(this.lastAppointment.end);
                 }
 

@@ -63,7 +63,7 @@
                                 {{ $t("Lien vers votre page artiste") }}
                             </h5>
                             <router-link class="text-blue-500" :to="{name:'artist.portfolio', params:{artist:profile.slug}}">
-                                https://we-tattoo.com/artists/{{profile.slug}}
+                                {{ process.env.APP_URL }}/artists/{{profile.slug}}
                             </router-link>
 
                             <p class="text-sm text-gray-700 mt-1">

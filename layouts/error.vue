@@ -13,8 +13,8 @@
                 <p class=" mb-6">{{ $t("... Mais c'est pas grave, on vous aide à retrouver votre chemin! Vous cherchez :") }}</p>
 
                 <ul class="list-disc ml-10">
-                    <li><nuxt-link class="text-blue-500" :to="localePath({name:'artists'})">{{ $t('Des artistes ?') }}</nuxt-link></li>
-                    <li><nuxt-link class="text-blue-500" :to="localePath({name:'conventions'})">{{ $t('Des conventions ?') }}</nuxt-link></li>
+                    <li><nuxt-link class="text-blue-500" :to="{name:'artists'}">{{ $t('Des artistes ?') }}</nuxt-link></li>
+                    <li><nuxt-link class="text-blue-500" :to="{name:'conventions'}">{{ $t('Des conventions ?') }}</nuxt-link></li>
                 </ul>
 
             </div>
