@@ -21,7 +21,7 @@
                         </nuxt-link>
                     </li>
                     <li class="hidden sm:block">
-                        <button class="text-center w-full block" @click.prevent="$store.dispatch('auth/logout', '/')">
+                        <button class="text-center w-full block" @click.prevent="$auth.logout()">
                             <font-awesome-icon :icon="['fal', 'power-off']"></font-awesome-icon>
                         </button>
                     </li>
