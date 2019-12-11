@@ -1,4 +1,4 @@
-const path = require('path')
+    const path = require('path')
 
 require('dotenv').config()
 
@@ -35,6 +35,7 @@ module.exports = {
       '@nuxtjs/auth',
       'nuxt-i18n',
       '@nuxtjs/recaptcha',
+      '@nuxtjs/svg',
       ['nuxt-fontawesome', {
         component: 'font-awesome-icon', 
         imports: [
@@ -60,8 +61,12 @@ module.exports = {
             icons: ['fad']
           },
         ]
-        }]
+        }],
+
+        ['nuxt-matomo', { matomoUrl: process.env.MATOMO_URL, siteId: process.env.MATOMO_SITE_ID }],
+
     ],
+    
     recaptcha: {
     hideBadge: false, // Hide badge element (v3)
     language: 'fr',   // Recaptcha language (v2)
