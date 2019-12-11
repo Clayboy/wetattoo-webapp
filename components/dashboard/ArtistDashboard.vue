@@ -228,6 +228,9 @@
                 }
             })
         },
+        destroyed(){
+            this.$bus.$off('agenda:gotodate');
+        },
         methods:{
             fetchLastPendingBookings(){
                 this.$axios.get(`/artists/${this.profile.id}/bookings`, {

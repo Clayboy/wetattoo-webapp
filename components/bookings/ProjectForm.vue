@@ -212,7 +212,7 @@
 </template>
 <script>
 
-    import {tattooZones} from '@/utilities/TattooVars';
+    import Form from '@/utilities/Form'
     import RightPanel from '@/components/layout/RightPanel'
 
     export default {
@@ -265,8 +265,11 @@
                     phone : '',
                 }),
                 account : 'none',
-                zones : tattooZones,
+                zones : [],
             }
+        },
+        async mounted() {
+            this.zones = await this.$store.dispatch('tattooZones')
         },
 
         methods : {

@@ -72,6 +72,7 @@ import SubscribeButton from '@/components/forms/SubscribeButton'
 import { mapState } from 'vuex';
 
 export default {
+    middleware : 'auth',
     components:{
         Visible,
         BookingForm,

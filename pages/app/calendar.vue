@@ -60,6 +60,7 @@
     import AppointmentMixin from '@/components/calendar/AppointmentMixin';
 
     export default {
+        middleware : 'auth-artist',
         layout : 'member',
         mixins : [AppointmentMixin],
         components: {

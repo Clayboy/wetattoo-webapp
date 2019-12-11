@@ -161,7 +161,7 @@
                 <div class=" flex items-center justify-center border-b-2 border-gray-200">
                     <ul class="flex" style="margin:-2px;">
                         <li class="mr-3">
-                            <nuxt-link :to="localePath({name : 'artists-slug', params : {slug : artist.slug}})"  class="nav-tab">
+                            <nuxt-link :to="{name : 'artists-slug', params : {slug : artist.slug}}"  class="nav-tab">
                                 {{ $t("Portfolio") }}
                             </nuxt-link>
                         </li>

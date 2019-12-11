@@ -50,9 +50,9 @@ export default {
             menus : {
                 artist : [
                     {routeName : 'app-home',            icon : 'home'},
-                    // {routeName : 'portfolio',       icon : 'image-polaroid'},
+                    {routeName : 'app-portfolio',       icon : 'image-polaroid'},
                  // {routeName : 'bo.flashes',      icon : 'bolt'},
-                    // {routeName : 'bo.travels',      icon : 'globe-stand'},
+                    {routeName : 'app-events',      icon : 'globe-stand'},
                     {routeName : 'app-bookings',    query : {status:"pending"}, icon : 'paper-plane'},
                     {routeName : 'app-calendar',     icon : 'calendar-alt'},
                 ],
@@ -71,10 +71,6 @@ export default {
             user : state => state.auth.user,
             usertype : state => state.auth.user.profile_type,
         }),
-
-        // ...mapGetters({
-        //     usertype : 'auth/usertype'
-        // }),
 
         menu(){
             if(this.menus[this.usertype] != undefined){

@@ -231,6 +231,10 @@
             })
         },
 
+        destroyed(){
+            this.$bus.$off('agenda:gotodate');
+        },
+
         mounted(){
             this.highlightDay(this.currentDate);
         },

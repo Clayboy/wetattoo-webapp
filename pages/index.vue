@@ -79,7 +79,7 @@
                         <div  v-for="artist in artists"
                             :key="`artist-${artist.id}`"
                             class="w-1/3 md:w-1/6 p-2">
-                            <nuxt-link class="block bg-white shadow p-1 h-full" :to="localePath({name : 'artists-slug', params : {slug : artist.slug}})">
+                            <nuxt-link class="block bg-white shadow p-1 h-full" :to="{name : 'artists-slug', params : {slug : artist.slug}}">
                                 <avatar :img="artist.avatar_url"></avatar>
                                 <h5 class="text-lg text-center">{{ artist.pseudo }}</h5>
                             </nuxt-link>

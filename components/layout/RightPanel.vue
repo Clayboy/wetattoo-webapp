@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="right-panel">
         <transition appear name="fade" mode="out-in" :duration="300">
             <div class="h-screen w-screen fixed z-50 top-0 left-0" style="background:rgba(0,0,0,.7)"  @click.prevent="close"></div>
         </transition>
@@ -49,7 +49,12 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+
+    .right-panel header{
+        @apply p-0 mb-8
+    }
+
     .slide-enter-active {
         transition: all .3s ease;
     }

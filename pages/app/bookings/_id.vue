@@ -197,6 +197,7 @@
     import { mapState } from 'vuex';
 
     export default {
+        middleware : 'auth',
         layout : 'member',
         mixins : [AppointmentMixin],
         components:{

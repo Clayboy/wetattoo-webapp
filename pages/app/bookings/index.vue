@@ -64,9 +64,10 @@
     import ProjectForm from '@/components/bookings/ProjectForm';
     import Paginator from '@/components/Paginator';
     import {bookingStatus} from '@/utilities/TattooVars';
-import { mapState } from 'vuex';
+    import { mapState } from 'vuex';
 
     export default {
+        middleware : 'auth',
         layout : 'member',
         components:{
             BookingItem,
