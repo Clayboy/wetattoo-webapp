@@ -32,7 +32,7 @@ export const mutations = {
 // On définit les getters qu'on pourra appeler dans les autres composants
 // pour avoir des informations
 export const getters = {
-    incoming : state => state.conventions //.filter(one => moment(one.end_date).isAfter(moment()))
+    incoming : state => state.conventions.filter(one => moment(one.end_date).isAfter(moment()))
 }
 
 export const actions = {
