@@ -158,7 +158,7 @@
                         <div  v-for="media in medias"
                             :key="`media-${media.id}`"
                             class="w-1/3 md:w-1/6 p-1">
-                            <nuxt-link class="media" :to="localePath({name : 'artists-slug', params : {slug : media.artist.slug}})">
+                            <nuxt-link class="media" :to="{name : 'artists-slug', params : {slug : media.artist.slug}}">
                                 <img :src="media.url" :alt="media.caption" />
 
                                 <div class="media-credit">
