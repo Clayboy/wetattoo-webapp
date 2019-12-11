@@ -166,7 +166,7 @@
                             </nuxt-link>
                         </li>
                         <li class="mr-3">
-                            <nuxt-link :to="localePath({name : 'artists-slug-events', params : {slug : artist.slug}})" class="nav-tab" href="#">
+                            <nuxt-link :to="{name : 'artists-slug-events', params : {slug : artist.slug}}" class="nav-tab" href="#">
                                 {{ $t("Guest & Conventions") }}
                             </nuxt-link>
                         </li>
