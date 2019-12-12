@@ -45,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <no-ssr>
+            <client-only>
                 <v-date-picker
                     v-show="displayCalendar"
                     class="border-0"
@@ -60,7 +60,7 @@
                     @input="setDate">
                         <template v-slot:header><div class="h-px">&nbsp;</div></template>
                 </v-date-picker>
-            </no-ssr>
+            </client-only>
         </div>
 
         <full-calendar

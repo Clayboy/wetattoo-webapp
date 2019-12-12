@@ -17,9 +17,9 @@
 
         <transition name="slim-fade">
             <div v-show="cropShow" class="crop-wrap">
-                <no-ssr>
+                <client-only>
                     <SlimCropper ref="cropper" :src="avatarSrc" :cropper-options="{cropBoxResizable : false}"></SlimCropper>
-                </no-ssr>
+                </client-only>
 
 
                 <div class="btn-box">
