@@ -5,6 +5,11 @@
             <span v-html="title"></span>
         </template>
         <template v-slot:body>
+            <div v-if="flash">
+                <div class="w-2/3 mx-auto pb-2/3 relative">
+                    <img :src="flash.media.url" class="absolute w-full h-full top-0 object-contain" />
+                </div>
+            </div>
             <form ref="bookingform" method="post" @submit.prevent="onSubmit">
                     <div class="mb-8">
                         <h3 class="text-xl font-light mb-3">
@@ -337,6 +342,10 @@
             },
             artistPseudo : {
                 type: String
+            },
+            flash : {
+                type: Object,
+                required:false
             }
         },
         data(){
@@ -346,6 +355,7 @@
                     artist_id : this.artistId,
                     gRecaptchaResponse : null,
                     user_id : null,
+                    flash_id : null,
                     zone : '',
                     size_l : '',
                     size_h : '',
@@ -378,12 +388,25 @@
                 this.bookingRequest.user_id = this.$auth.user.id
                 this.bookingRequest.email = this.$auth.user.email
             }
+
+            if(this.flash){
+                this.bookingRequest.flash_id = this.flash.id;
+
+                this.bookingRequest.size_l = this.flash.size_w;
+                this.bookingRequest.size_h = this.flash.size_h;
+                this.bookingRequest.budget = this.flash.price;
+                this.bookingRequest.title = `Réservation flash : ${this.flash.ref}`;
+            }
         },
 
         computed:{
 
             title(){
-                return this.$i18n.t('Réserver un tatouage avec {artist}', {artist : `<span class="text-indigo-800">${this.artistPseudo}</span>`})
+                if(this.flash){
+                    return this.$i18n.t('Réserver un flash à {artist}', {artist : `<span class="text-indigo-800">${this.artistPseudo}</span>`})
+                }else{
+                    return this.$i18n.t('Réserver un tatouage à {artist}', {artist : `<span class="text-indigo-800">${this.artistPseudo}</span>`})
+                }
             },
 
             user(){

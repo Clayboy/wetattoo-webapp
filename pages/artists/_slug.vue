@@ -11,6 +11,7 @@
         </div>
         <booking-form :artist-id="artist.id" 
             :artist-pseudo="artist.pseudo" 
+            :flash="tattooFlash"
             v-if="artist && bookingForm" 
             @close="bookingForm = false" />
 
@@ -170,11 +171,17 @@
                                 {{ $t("Guest & Conventions") }}
                             </nuxt-link>
                         </li>
+                        <li class="mr-3">
+                            <nuxt-link :to="{name : 'artists-slug-flashs', params : {slug : artist.slug}}" class="nav-tab" href="#">
+                                {{ $t("Flashs") }}
+                            </nuxt-link>
+                        </li>
                     </ul>
                 </div>
 
                 <div class="px-4 py-3">
-                    <nuxt-child :artist="artist" />
+                    <nuxt-child :artist="artist"
+                        @bookflash="bookFlash" />
                 </div>
             </div>
         </div>
@@ -207,6 +214,7 @@ export default {
         return {
             bookingForm : false,
             displayWorkHours : false,
+            tattooFlash : null,
         }
     },
 
@@ -314,6 +322,11 @@ export default {
         },
         updateProp(payload){
             Vue.set(this.artist, payload.prop, payload.value);
+        },
+
+        bookFlash(flash){
+            this.tattooFlash = flash;
+            this.bookingForm = true;
         }
     },
 
