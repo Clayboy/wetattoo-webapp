@@ -210,6 +210,11 @@ export default {
         }
     },
 
+    mounted(){
+        if(this.$route.hash == '#book' && this.artist.bookable){
+            this.bookArtist();
+        }
+    },
 
     computed:{
         isCurrentUser(){
