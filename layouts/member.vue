@@ -49,12 +49,12 @@ export default {
         return {
             menus : {
                 artist : [
-                    {routeName : 'app-home',            icon : 'home'},
-                    {routeName : 'app-portfolio',       icon : 'image-polaroid'},
-                 // {routeName : 'bo.flashes',      icon : 'bolt'},
+                    {routeName : 'app-home',        icon : 'home'},
+                    {routeName : 'app-portfolio',   icon : 'image-polaroid'},
+                    {routeName : 'app-flashes',     icon : 'bolt'},
                     {routeName : 'app-events',      icon : 'globe-stand'},
                     {routeName : 'app-bookings',    query : {status:"pending"}, icon : 'paper-plane'},
-                    {routeName : 'app-calendar',     icon : 'calendar-alt'},
+                    {routeName : 'app-calendar',    icon : 'calendar-alt'},
                 ],
                 member : [
                     {routeName : 'app-home', icon : 'home'},

@@ -38,8 +38,15 @@ export default class Form {
         if(this.multipart){
             data = new FormData();
 
-            for (let prop in this.originalData) {
-                data.append(prop, this[prop]);
+            let json = {};
+
+              for (let prop in this.originalData) {
+                  if (typeof this[prop] == 'boolean') {
+                    console.log(typeof this[prop])
+                    data.append(prop, this[prop] ? 1 : 0);
+                }else{
+                    data.append(prop, this[prop]);
+                }
             }
         }else{
             for (let prop in this.originalData) {
