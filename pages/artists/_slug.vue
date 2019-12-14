@@ -321,10 +321,15 @@ export default {
         return {
             title : this.artist.pseudo + (this.location ? " · " + this.$i18n.t("Tatoueur")  + " " + this.location : "") + (this.serializedStyles != "" ? " · " + this.serializedStyles : ""),
             meta: [
+                { hid: 'description', name: 'description', content: this.$i18n.t("Découvrez {artist} sur WE Tattoo", {artist : this.artist.pseudo}) + " " + this.artist.bio},
+                { hid: 'keywords', name: 'keywords', content: this.serializedStyles + ', ' + this.artist.pseudo + 'tatoueur, tattoo artist, artist, artiste'},
                 { 'property': 'og:title', 'content': this.$i18n.t("Découvrez {artist} sur WE Tattoo", {artist : this.artist.pseudo}), 'vmid': 'og:title'},
                 { 'property': 'og:site_name', 'content': `WE Tattoo`, 'vmid': 'og:site_name'},
                 { 'property': 'og:image', 'content': `${this.artist.avatar_url}`, 'vmid': 'og:image'},
-                { 'property': 'og:description', 'content': this.artist.bio, 'vmid': 'og:description'}
+                { 'property': 'og:description', 'content': this.artist.bio, 'vmid': 'og:description'},
+                { 'property': 'og:type', 'content': 'profile', 'vmid': 'og:type'},
+                { 'property': 'og:profile:username', 'content': this.artist.pseudo, 'vmid': 'og:type'},
+
             ]
         } 
     }

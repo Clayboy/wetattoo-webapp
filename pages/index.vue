@@ -191,6 +191,20 @@
 
     export default {
         layout : 'empty',
+        head() {
+            return {
+                meta: [
+                    { hid: 'description', name: 'description', content: "WE Tattoo, " + this.$i18n.t("Le service en ligne pour les professionnels et les futurs tatoués") },
+                    { hid: 'keywords', name: 'keywords', content: "tattoo, tatouage, tattoo art, ink, body art, tattoos, crm, ink, inkspiration, bookings, online bookings, tattoo booking, réservation tatouage, tatouages" },
+                    { 'property': 'og:type', 'content': 'website', 'vmid': 'og:type'},
+                    { 'property': 'og:title', 'content': "WE Tattoo : " + this.$i18n.t("Inspirez-vous. Contactez les artistes. Réservez."), 'vmid': 'og:title'},
+                    { 'property': 'og:site_name', 'content': `WE Tattoo`, 'vmid': 'og:site_name'},
+                    { 'property': 'og:image', 'content': `https://cdn.we-tattoo.com/assets/wetattoo_logo.png`, 'vmid': 'og:image'},
+                    { 'property': 'og:url', 'content': `https://we-tattoo.com`, 'vmid': 'og:url'},
+                    { 'property': 'og:description', 'content': this.$i18n.t("Le service en ligne pour les professionnels et les futurs tatoués"), 'vmid': 'og:description'}
+                ]
+            } 
+        },
         data(){
             return {
                 videonumber : Math.floor(Math.random() * 2) + 1,

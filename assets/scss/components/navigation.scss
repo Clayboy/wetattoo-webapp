@@ -60,7 +60,12 @@
 
 .sidebar ul li a{
     //display:block;
-    @apply px-4 py-2 block text-center w-full;
+    @apply px-4 py-2 block text-center w-full text-gray-700;
+}
+
+.sidebar ul li a:hover{
+    //display:block;
+    @apply text-indigo-800;
 }
 
 .sidebar ul li a.nuxt-link-exact-active {

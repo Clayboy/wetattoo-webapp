@@ -89,6 +89,18 @@
         layout({$auth}){
             return $auth.loggedIn ? 'member' : 'default'
         },
+        head(){
+            return {
+            title : this.$i18n.t("Parcourez les artistes"),
+            meta: [
+                { 'property': 'og:title', 'content': this.$i18n.t("Parcourez les artistes WE Tattoo"), 'vmid': 'og:title'},
+                { 'property': 'og:site_name', 'content': `WE Tattoo`, 'vmid': 'og:site_name'},
+                { 'property': 'og:description', 'content': this.$i18n.t("Le service en ligne pour les professionnels et les futurs tatoués"), 'vmid': 'og:description'},
+                { 'property': 'og:type', 'content': 'website', 'vmid': 'og:type'},
+
+            ]
+        } 
+        },
         data(){
             return {
                 filterMode: false,
