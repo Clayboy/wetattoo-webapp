@@ -237,11 +237,9 @@ export default {
             meta: [
                 { hid: 'description', name: 'description', content: description},
                 { hid: 'keywords', name: 'keywords', content: "tattoo, tatouage, tattoo art, ink, body art, tattoos, crm, ink, inkspiration, bookings, online bookings, tattoo booking, réservation tatouage, tatouages" },
-                { 'property': 'og:type', 'content': 'website', 'vmid': 'og:type'},
                 { 'property': 'og:title', 'content': "WE Tattoo : " + this.$i18n.t("L'outil qui simplifie l'activité des professionnels du tatouage."), 'vmid': 'og:title'},
                 { 'property': 'og:site_name', 'content': `WE Tattoo`, 'vmid': 'og:site_name'},
                 { 'property': 'og:image', 'content': `https://cdn.we-tattoo.com/assets/wetattoo_logo.png`, 'vmid': 'og:image'},
-                { 'property': 'og:url', 'content': `https://we-tattoo.com`, 'vmid': 'og:url'},
                 { 'property': 'og:description', 'content': description, 'vmid': 'og:description'}
             ]
         } 
