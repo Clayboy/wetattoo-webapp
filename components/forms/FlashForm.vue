@@ -1,19 +1,37 @@
 <template>
     <right-panel @close="close">
          <template v-slot:title>
-            {{ flash !== undefined ? $t("Edition Flash") : $t("Nouveau Tattoo Flash") }}
+            {{ flash !== null ? $t("Edition Flash") : $t("Nouveau Tattoo Flash") }}
         </template>
         <template v-slot:body>
             <form @submit.prevent="save">
-                <div v-if="!flash">
+                <div v-if="!flash" class="mb-3">
                     <img :src="filePreview" v-if="filePreview" alt="">
-                    <input type="file"
-                        ref="fileupload"
-                        accept="image/*"
-                        @change="updateFile"
-                        class="cursor-pointer w-24 w-full h-full inset-x-0 bottom-0"  />
+
+                    <div v-show="!filePreview" class="flex items-stretch">
+                        <div class="relative w-1/2 mr-2">
+                            <button class="w-full btn btn-primary-outline" @click.prevent>
+                                <font-awesome-icon :icon="['fal', 'camera-retro']" class="text-lg"></font-awesome-icon>
+                                <br />
+                                Upload file
+                            </button>
+                            <input type="file"
+                                ref="fileupload"
+                                accept="image/*"
+                                @change="updateFile"
+                                class="absolute opacity-0 cursor-pointer w-24 w-full h-full inset-x-0 bottom-0 top-0"  />
+                        </div>
+                        <div class="relative w-1/2">
+                            <button class="btn btn-primary-outline w-full" @click.prevent>
+                                <font-awesome-icon :icon="['fal', 'image-polaroid']" class="text-lg"></font-awesome-icon>
+                                <br />
+                                Image du portfolio
+                            </button>
+                        </div>
+
+                    </div>
                 </div>
-                <div v-else>
+                <div class="mb-3" v-else>
                     <img :src="flash.media.url" />
                 </div>
                 <div class="field mb-2">
