@@ -51,7 +51,7 @@ export default {
                 artist : [
                     {routeName : 'app-home',        icon : 'home'},
                     {routeName : 'app-portfolio',   icon : 'image-polaroid'},
-                    {routeName : 'app-flashes',     icon : 'bolt'},
+                    {routeName : 'app-tattooflash',     icon : 'bolt'},
                     {routeName : 'app-events',      icon : 'globe-stand'},
                     {routeName : 'app-bookings',    query : {status:"pending"}, icon : 'paper-plane'},
                     {routeName : 'app-calendar',    icon : 'calendar-alt'},
