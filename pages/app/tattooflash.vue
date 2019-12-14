@@ -18,21 +18,24 @@
         </header>
 
         <div class="panel">
-            <div class="flex items-stretch flex-wrap">
-                <div v-for="(flash, index) in flashes" :key="flash.id" class="w-1/2 md:w-1/3 p-2" >
-                    <tattoo-flash-card :flash="flash">
+            <div class="md:flex items-stretch flex-wrap">
+                <div v-for="(flash, index) in flashes" :key="flash.id" class="sm:w-1/2 md:w-1/3 p-2" >
+                    <flash-card-h :flash="flash">
                         <template v-slot:actions>
-                            <button class="btn btn-small btn-primary flex-grow mr-2" @click.prevent="editFlash(flash)">
-                                Editer
-                            </button>
-                            <button class="btn btn-small btn-primary flex-grow mr-2">
-                                Vendu
-                            </button>
-                            <button class="btn btn-small btn-primary-outline" @click.prevent="deleteFlash(index)">
-                                <font-awesome-icon :icon="['fal', 'trash']"></font-awesome-icon>
-                            </button>
+                            <div class="flex items-center">
+                                <button class="hidden sm:block text-blue-500 hover:text-blue-700 mr-2" @click.prevent="editFlash(flash)">
+                                    Editer
+                                </button>
+                                <option-menu :btn-class="['px-2']">
+                                    <ul>
+                                        <li class="block sm:hidden"><a href="#" @click.prevent="editFlash(flash)">Editer</a></li>
+                                        <li><a href="#">Marquer comme vendu</a></li>
+                                        <li><a href="#" @click.prevent="deleteFlash(index)">Supprimer</a></li>
+                                    </ul>
+                                </option-menu>
+                            </div>
                         </template>
-                    </tattoo-flash-card>
+                    </flash-card-h>
                 </div>
             </div>
             <div v-if="!flashes" class="text-center py-6 text-gray-500 text-xl">
@@ -50,8 +53,10 @@
 </template>
 <script>
 
+    import OptionMenu from '@/components/OptionMenu'
     import FlashForm from '@/components/forms/FlashForm'
     import TattooFlashCard from '@/components/flashs/TattooFlashCard'
+    import FlashCardH from '@/components/flashs/FlashCardH'
     import _ from 'lodash'
 
     export default {
@@ -59,7 +64,9 @@
         layout : 'member',
         components : {
             FlashForm,
-            TattooFlashCard
+            TattooFlashCard,
+            OptionMenu,
+            FlashCardH
         },
 
         data(){

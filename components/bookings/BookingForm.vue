@@ -45,6 +45,7 @@
                                         class="input mr-3"
                                         :class="{'error' : bookingRequest.errors.has('size_l')}"
                                         name="size_l"
+                                        :disabled="!sizeEditable"
                                         :placeholder="$i18n.t('Largeur approximative')"
                                         v-model="bookingRequest.size_l">
                                     <input
@@ -52,6 +53,7 @@
                                         class="input"
                                         :class="{'error' : bookingRequest.errors.has('size_h')}"
                                         name="size_l"
+                                        :disabled="!sizeEditable"
                                         :placeholder="$i18n.t('Hauteur approximative')"
                                         v-model="bookingRequest.size_h">
                                 </div>
@@ -345,7 +347,10 @@
             },
             flash : {
                 type: Object,
-                required:false
+                required:false,
+                default(){
+                    return null
+                }
             }
         },
         data(){
@@ -411,13 +416,14 @@
 
             user(){
                 return this.$store.state.auth.user;
+            },
+
+            sizeEditable(){
+                return this.flash == null || (this.flash != null && this.flash.expandable)
             }
         },
 
         methods : {
-
-            
-
             setToken(token){
                 this.bookingRequest.gRecaptchaResponse = token;
                 this.save();

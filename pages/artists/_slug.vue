@@ -13,7 +13,7 @@
             :artist-pseudo="artist.pseudo" 
             :flash="tattooFlash"
             v-if="artist && bookingForm" 
-            @close="bookingForm = false" />
+            @close="closeBookingForm" />
 
         <div class="md:flex items-start h-full md:px-6 md:pt-5 relative">
 
@@ -327,6 +327,10 @@ export default {
         bookFlash(flash){
             this.tattooFlash = flash;
             this.bookingForm = true;
+        },
+        closeBookingForm(){
+            this.bookingForm = false;
+            this.tattooFlash = null;
         }
     },
 
