@@ -30,14 +30,17 @@
 
 /*** MEMBER SIDEBAR ***/
 .sidebar{
-    @apply fixed bg-indigo-900 text-white;
+    @apply fixed bg-white text-indigo-800;
     @apply bottom-0 w-full z-40;
+
+    box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.3), 0 0px 0px 0px rgba(0, 0, 0, 0.3), 0 -2px 4px -1px rgba(0, 0, 0, 0.3), 0 0px 0px 0px rgba(0, 0, 0, 0.3);
     z-index:90;
 
     @screen sm {
         height:calc(100% - 57px);
         top:57px;
         width:65px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.18);
     }
 }
 
@@ -61,7 +64,7 @@
 }
 
 .sidebar ul li a.nuxt-link-exact-active {
-    @apply bg-gray-900;
+    @apply bg-indigo-900 text-white;
 }
 
 
