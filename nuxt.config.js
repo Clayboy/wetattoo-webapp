@@ -22,9 +22,11 @@ module.exports = {
         meta: [
           { charset: 'utf-8' },
           { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    
+          { 'property': 'og:site_name', 'content': `WE Tattoo`, 'vmid': 'og:site_name'},
+          { 'property': 'og:image', 'content': `https://cdn.we-tattoo.com/assets/wetattoo_logo.png`, 'vmid': 'og:image'},
+
           // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-          { hid: 'description', name: 'description', content: 'Meta description' }
+          { hid: 'description', name: 'description', content: 'WE Tattoo' }
         ]
     },
 

@@ -230,6 +230,19 @@
 
 <script>
 export default {
-    
+    head() {
+        let description = this.$i18n.t("Vous êtes tatoueur ? Voici l'outil qui simplifie votre activité et la relation avec les clients") + " " + this.$i18n.t("Gérez vos réservations, Rendez-vous et Ahrres") + " " + this.$i18n.t("Diffusez votre actu et déplacements");
+        return {
+            title : this.$i18n.t("L'outil qui simplifie l'activité des professionnels du tatouage."),
+            meta: [
+                { hid: 'description', name: 'description', content: description},
+                { hid: 'keywords', name: 'keywords', content: "tattoo, tatouage, tattoo art, ink, body art, tattoos, crm, ink, inkspiration, bookings, online bookings, tattoo booking, réservation tatouage, tatouages" },
+                { 'property': 'og:title', 'content': "WE Tattoo : " + this.$i18n.t("L'outil qui simplifie l'activité des professionnels du tatouage."), 'vmid': 'og:title'},
+                { 'property': 'og:site_name', 'content': `WE Tattoo`, 'vmid': 'og:site_name'},
+                { 'property': 'og:image', 'content': `https://cdn.we-tattoo.com/assets/wetattoo_logo.png`, 'vmid': 'og:image'},
+                { 'property': 'og:description', 'content': description, 'vmid': 'og:description'}
+            ]
+        } 
+    },
 }
 </script>

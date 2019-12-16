@@ -11,7 +11,7 @@
  }
 
  .btn-primary{
-    @apply .bg-indigo-800 .text-white;
+    @apply .bg-indigo-800 border border-indigo-800 .text-white;
     box-shadow:0 1px 2px 0 #968CBF;
  }
  .btn-primary:hover{
