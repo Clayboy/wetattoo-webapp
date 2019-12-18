@@ -1,6 +1,6 @@
 <template>
     <div class="shadow border border-gray-300 flex">
-        <div class="pb-1/3 w-1/3 relative">
+        <div class="pb-1/3 w-1/3 relative flex-shrink-0">
             <img :src="flash.media.url" v-if="flash.media" alt="" class="absolute w-full h-full top-0 object-contain" />
 
             <div class="rounded text-white text-xs absolute bottom-0 left-0 m-2 px-2 py-1 font-medium" style="background:rgba(0,0,0,0.7)">
@@ -9,8 +9,8 @@
         </div>
         <div class="flex-grow">
             <div class="py-1 px-2 text-sm flex items-center justify-between border-b border-gray-300">
-                <h3 class="font-semibold">{{ flash.ref }}</h3>
-                <div>
+                <h3 class="font-semibold flex-grow truncate">{{ flash.ref }}</h3>
+                <div class="flex-shrink-0">
                     <slot name="actions" />
                 </div>
             </div>
