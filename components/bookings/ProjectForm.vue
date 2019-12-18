@@ -235,10 +235,10 @@
                 let regExp = new RegExp('(@)([a-zA-Z0-9]+)(.)([a-zA-Z]+)', 'ig');
 
                 if(regExp.test(val)){
-                    axios.get('/users/search?email='+val)
-                        .then(data => {
-                            this.suggestions = data.users;
-                        })
+                    // this.$axios.get('/users/search?email='+val)
+                    //     .then(data => {
+                    //         this.suggestions = data.users;
+                    //     })
                 }
             }
         },
@@ -286,7 +286,7 @@
                     .then(response => {
 
                         this.close();
-                        this.$router.push({name : 'bookings.show', params : {bookingid : response.booking.id}});
+                        this.$router.push({name : 'app-bookings-id', params : {id : response.booking.id}});
                     })
             },
 
