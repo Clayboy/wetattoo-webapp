@@ -31,6 +31,9 @@
             <div class="pb-6 member-content">
                 <nuxt />
             </div>
+            <template v-if="usertype == 'artist'">
+                <project-form :artist-id="profile.id" v-if="displayBookingForm" @close="displayBookingForm = false"></project-form>
+            </template>
         </main>
     </div>
 </template>
@@ -39,14 +42,17 @@
 
 import AppHeader from '@/components/layout/Header';
 import { mapState, mapGetters } from 'vuex';
+import ProjectForm from '@/components/bookings/ProjectForm';
 
 export default {
     components : {
         AppHeader,
+        ProjectForm
     },
 
     data(){
         return {
+            displayBookingForm : false,
             menus : {
                 artist : [
                     {routeName : 'app-home',        icon : 'home'},
@@ -65,11 +71,18 @@ export default {
         }
     },
 
+    mounted(){
+        this.$bus.$on('bookingform:open', () => {
+            this.displayBookingForm = true;
+        })
+    },
+
     computed:{
 
         ...mapState({
             user : state => state.auth.user,
             usertype : state => state.auth.user.profile_type,
+            profile : state => state.auth.user.profile,
         }),
 
         menu(){
