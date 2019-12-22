@@ -38,6 +38,7 @@ module.exports = {
       'nuxt-i18n',
       '@nuxtjs/recaptcha',
       '@nuxtjs/svg',
+      '@nuxtjs/sentry',
       ['nuxt-fontawesome', {
         component: 'font-awesome-icon', 
         imports: [
@@ -157,6 +158,9 @@ module.exports = {
         baseURL : process.env.API_URL,
         https : true
       // proxyHeaders: false
+    },
+    sentry: {
+        dsn: 'https://99b35aecd09147029fac23f589727aba@sentry.io/1864211', // Enter your project's DSN here
     },
     plugins: [
         '~/plugins/global',
