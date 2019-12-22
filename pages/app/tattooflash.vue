@@ -20,11 +20,16 @@
 
         <tabs>
             <tab :icon="['fal', 'bolt']" name="forsale" label="flash en vente" :selected="true">
-                <h3 class="text-lg">
-                    Gains potentiels : {{ totalForSale }}
-                </h3>
-                <div class="md:flex items-stretch flex-wrap">
-                    <div v-for="(flash, index) in availableFlashes" :key="flash.id" class="w-full sm:w-1/2 p-1 sm:p-2" >
+                <div class="border-b justify-between flex items-center border-gray-400 sm:-mt-2 pb-2 mb-4 text-gray-600">
+                    <h3 class="">
+                        {{availableFlashes.length}} Flashs en vente
+                    </h3>
+                    <h3 class="">
+                        Gains potentiels : {{ totalForSale }} €
+                    </h3>
+                </div>
+                <div class="md:flex items-stretch flex-wrap -mx-2">
+                    <div v-for="(flash, index) in availableFlashes" :key="flash.id" class="w-full md:w-1/2 p-1 md:p-2" >
                         <flash-card-h :flash="flash">
                             <template v-slot:actions>
                                 <div class="flex items-center">
@@ -55,8 +60,16 @@
                 </div>
             </tab>
             <tab :icon="['fas', 'bolt']" name="sold" label="flash vendus">
+                <div class="border-b justify-between flex items-center border-gray-400 sm:-mt-2 pb-2 mb-4 text-gray-600">
+                    <h3 class="">
+                        {{bookedFlashes.length}} Flashs réservés
+                    </h3>
+                    <h3 class="">
+                        Gains estimés : {{ totalSold }} €
+                    </h3>
+                </div>
                 <div class="md:flex items-stretch flex-wrap">
-                    <div v-for="(flash, index) in bookedFlashes" :key="flash.id" class="w-full sm:w-1/2 p-1 sm:p-2" >
+                    <div v-for="(flash, index) in bookedFlashes" :key="flash.id" class="w-full md:w-1/2 p-1 md:p-2" >
                         <flash-card-h :flash="flash">
                             <template v-slot:actions>
                                 <div class="flex items-center">
@@ -130,6 +143,9 @@
 
             totalForSale(){
                 return this.availableFlashes.reduce((accumulator, flash) => accumulator + parseFloat(flash.price, 10), 0);
+            },
+            totalSold(){
+                return this.bookedFlashes.reduce((accumulator, flash) => accumulator + parseFloat(flash.price, 10), 0);
             }
         },
 
