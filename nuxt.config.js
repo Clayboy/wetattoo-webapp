@@ -117,6 +117,7 @@ module.exports = {
             'app/portfolio/index' : false,
             'app/bookings/index' : false,
             'app/bookings/_id' : false,
+            'conventions/_slug' : false,
         },
         vueI18n: {
           fallbackLocale: 'fr',
