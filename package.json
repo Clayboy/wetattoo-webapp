@@ -24,6 +24,7 @@
     "@nuxtjs/auth": "^4.8.4",
     "@nuxtjs/axios": "^5.8.0",
     "@nuxtjs/recaptcha": "^0.6.1",
+    "@nuxtjs/sentry": "^3.0.1",
     "@nuxtjs/svg": "^0.1.6",
     "@nuxtjs/tailwindcss": "^1.2.0",
     "dotenv": "^8.2.0",
