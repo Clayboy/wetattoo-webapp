@@ -26,7 +26,7 @@
                                     name="zone"
                                     v-model="bookingRequest.zone">
                                     <option value="" class="text-gray-500">— {{ $t("Choisissez l'emplacement de votre futur tatouage")}} —</option>
-                                    <option v-for="zone in tattooZones"
+                                    <option v-for="zone in zones"
                                         v-text="zone.label"
                                         :value="zone.name"
                                         :key="zone.name"></option>
@@ -329,62 +329,26 @@
     import RightPanel from '@/components/layout/RightPanel';
     import {tattooZones} from '@/utilities/TattooVars';
 
+    import BookingMixin from '@/utilities/BookingMixin';
+
     import {mapState, mapGetters, mapActions} from 'vuex';
 
     export default {
+        mixins : [BookingMixin],
         components : {
             LoginForm,
             RegisterForm,
-            RightPanel
-        },
-        props:{
-            artistId : {
-                type:Number,
-                required:true,
-            },
-            artistPseudo : {
-                type: String
-            },
-            flash : {
-                type: Object,
-                required:false,
-                default(){
-                    return null
-                }
-            }
         },
         data(){
             return {
-                recaptcha_key : window.recaptcha_key,
-                bookingRequest : new Form({
-                    artist_id : this.artistId,
-                    gRecaptchaResponse : null,
-                    user_id : null,
-                    flash_id : null,
-                    zone : '',
-                    size_l : '',
-                    size_h : '',
-                    style : 'color',
-                    title : '',
-                    description : '',
-                    availabilities : '',
-                    budget : '',
-
-                    firstname : '',
-                    lastname : '',
-                    tattooed : false,
-                    email : '',
-                    phone : '',
-                }),
                 account : 'new',
                 step : 1,
-                tattooZones : this.$root.context.app.global.tattooZones
             }
         },
 
         async mounted() {
             await this.$recaptcha.init()
-            this.tattooZones = await this.$store.dispatch('tattooZones')
+            this.zones = await this.$store.dispatch('tattooZones')
         },
 
 
@@ -433,17 +397,7 @@
                 this.bookingRequest.user_id = this.$store.state.auth.user.id;
             },
 
-            async onSubmit() {
-                try {
-                    const token = await this.$recaptcha.execute('login')
-                    console.log('ReCaptcha token:', token)
-                } catch (error) {
-                    console.log('Login error:', error)
-                }
-            },
-
             save(){
-
                 if(this.bookingRequest.user_id){
                     this.saveBooking();
                 }else{
@@ -482,10 +436,6 @@
                         this.bookingRequest.gRecaptchaResponse = "";
                         this.$recaptcha.reset();
                     })
-            },
-
-            close(){
-                this.$emit('close');
             },
 
             onError(error) {

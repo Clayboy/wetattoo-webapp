@@ -1,10 +1,10 @@
 <template>
     <div class="right-panel">
         <transition appear name="fade" mode="out-in" :duration="300">
-            <div class="h-screen w-screen fixed top-0 left-0" style="background:rgba(0,0,0,.7);z-index:10000"  @click.prevent="close"></div>
+            <div class="h-screen w-screen fixed top-0 left-0" style="background:rgba(0,0,0,.7);z-index:100"  @click.prevent="close"></div>
         </transition>
         <transition appear name="slide" mode="out-in">
-            <div class="fixed bg-white top-0 right-0 w-full md:w-1/2 lg:w-1/3 z-50 p-4 pb-16 sm:pb-4 h-screen overflow-y-auto shadow-lg flex flex-col">
+            <div style="z-index:101" class="fixed bg-white top-0 right-0 w-full md:w-1/2 lg:w-1/3 p-4 pb-16 sm:pb-4 h-screen overflow-y-auto shadow-lg flex flex-col">
                 <header class="flex justify-between mb-6">
                     <h2 class="text-lg sm:text-2xl font-base">
                         <slot name="title"></slot>

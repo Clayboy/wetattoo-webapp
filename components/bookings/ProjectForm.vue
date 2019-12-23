@@ -214,20 +214,10 @@
 
     import Form from '@/utilities/Form'
     import RightPanel from '@/components/layout/RightPanel'
+    import BookingMixin from '@/utilities/BookingMixin';
 
     export default {
-        components : {
-            RightPanel
-        },
-        props:{
-            artistId : {
-                type:Number,
-                required:true,
-            },
-            artistPseudo : {
-                type: String
-            }
-        },
+        mixins : [BookingMixin],
 
         watch: {
             'bookingRequest.email': (val) => {
@@ -245,38 +235,16 @@
         data(){
             return {
                 suggestions : [],
-                bookingRequest : new Form({
-                    artist_id : this.artistId,
-                    // user_id : false,
-                    zone : '',
-                    size_l : '',
-                    size_h : '',
-                    style : 'color',
-                    title : '',
-                    description : '',
-                    availabilities : '',
-                    budget : '',
-                    status : 'accepted',
-
-                    firstname : '',
-                    lastname : '',
-                    tattooed : false,
-                    email : '',
-                    phone : '',
-                }),
                 account : 'none',
-                zones : [],
             }
         },
         async mounted() {
+            this.bookingRequest.status = 'accepted';
             this.zones = await this.$store.dispatch('tattooZones')
         },
 
         methods : {
 
-            updateUser(user){
-                this.bookingRequest.user_id = '';
-            },
             save(){
                 this.saveBooking();
             },
@@ -289,10 +257,6 @@
                         this.$router.push({name : 'app-bookings-id', params : {id : response.booking.id}});
                     })
             },
-
-            close(){
-                this.$emit('close');
-            }
         }
     }
 </script>
