@@ -3,7 +3,7 @@
 export const state = () => {
     return {
         displayForm : false,
-        formPrefill : {}
+        flash : null,
     }
 }
 
@@ -12,23 +12,24 @@ export const mutations = {
     SET_DISPLAY(state, display) {
         state.displayForm = display
     },
-    SET_PREFILL(state, prefill) {
-        state.formPrefill = prefill
-    },
+
+    SET_FLASH(state, flash){
+        state.flash = flash
+    }
 }
 
 export const actions = {
 
     closeForm({commit}){
         commit('SET_DISPLAY', false);
-        commit('SET_PREFILL', {})
+        commit('SET_FLASH', null)
     },
 
-    openForm({commit}, prefill){
+    openForm({commit}, payload){
         commit('SET_DISPLAY', true);
 
-        if(prefill != undefined){
-            commit('SET_PREFILL', prefill)
+        if(payload != undefined && payload.flash != undefined){
+            commit('SET_FLASH', payload.flash)
         }
     }
 }

@@ -4,6 +4,11 @@
             {{$t("Nouveau projet") }}
         </template>
         <template v-slot:body>
+            <div v-if="flash">
+                <div class="w-2/3 mx-auto pb-2/3 relative">
+                    <img :src="flash.media.url" class="absolute w-full h-full top-0 object-contain" />
+                </div>
+            </div>
             <form @submit.prevent="save">
                 <div class="mb-8">
                     <h3 class="text-xl font-light mb-3">
@@ -240,7 +245,6 @@
         },
         async mounted() {
             this.bookingRequest.status = 'accepted';
-            this.zones = await this.$store.dispatch('tattooZones')
         },
 
         methods : {

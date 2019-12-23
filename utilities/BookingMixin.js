@@ -38,7 +38,7 @@ export default {
                 description : '',
                 availabilities : '',
                 budget : '',
-
+                status : 'pending',
                 firstname : '',
                 lastname : '',
                 tattooed : false,
@@ -49,6 +49,19 @@ export default {
         }
     },
 
+    async mounted(){
+        this.zones = await this.$store.dispatch('tattooZones')
+    },
+    created(){
+        if(this.flash){
+            this.bookingRequest.flash_id = this.flash.id;
+
+            this.bookingRequest.size_l = this.flash.size_w;
+            this.bookingRequest.size_h = this.flash.size_h;
+            this.bookingRequest.budget = this.flash.price;
+            this.bookingRequest.title = `Réservation flash : ${this.flash.ref}`;
+        }
+    },
     methods : {
 
         close(){

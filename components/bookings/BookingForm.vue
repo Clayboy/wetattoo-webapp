@@ -348,7 +348,6 @@
 
         async mounted() {
             await this.$recaptcha.init()
-            this.zones = await this.$store.dispatch('tattooZones')
         },
 
 
@@ -356,15 +355,6 @@
             if(this.$auth.loggedIn){
                 this.bookingRequest.user_id = this.$auth.user.id
                 this.bookingRequest.email = this.$auth.user.email
-            }
-
-            if(this.flash){
-                this.bookingRequest.flash_id = this.flash.id;
-
-                this.bookingRequest.size_l = this.flash.size_w;
-                this.bookingRequest.size_h = this.flash.size_h;
-                this.bookingRequest.budget = this.flash.price;
-                this.bookingRequest.title = `Réservation flash : ${this.flash.ref}`;
             }
         },
 

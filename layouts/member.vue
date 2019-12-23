@@ -32,7 +32,7 @@
                 <nuxt />
             </div>
             <template v-if="usertype == 'artist'">
-                <project-form :artist-id="profile.id" v-if="displayBookingForm" @close="$store.dispatch('bookings/closeForm')"></project-form>
+                <project-form :artist-id="profile.id" v-if="bookingForm" :flash="bookingFlash" @close="$store.dispatch('bookings/closeForm')"></project-form>
             </template>
         </main>
     </div>
@@ -73,11 +73,11 @@ export default {
     computed:{
 
         ...mapState({
-            displayBookingForm  : state => state.bookings.displayForm,
-            currentBooking      : state => state.bookings.formPrefill,
-            user                : state => state.auth.user,
-            usertype            : state => state.auth.user.profile_type,
-            profile             : state => state.auth.user.profile,
+            bookingForm     : state => state.bookings.displayForm,
+            bookingFlash    : state => state.bookings.flash,
+            user            : state => state.auth.user,
+            usertype        : state => state.auth.user.profile_type,
+            profile         : state => state.auth.user.profile,
         }),
 
         menu(){
