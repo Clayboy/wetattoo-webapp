@@ -1,6 +1,5 @@
 <template>
     <div class="container mx-auto">
-        <project-form :artist-id="artistId" v-if="displayForm" @close="displayForm = false"></project-form>
         <header class="mb-4">
             <h1 class="page-title">
                 {{ $t("Réservations") }} > {{ current.label }}
@@ -19,7 +18,7 @@
             </visible>
             <div id="nav" class="md:w-1/5 md:mr-6 flex-grow-0 flex-shrink-0">
                 <div class="h-10 mb-3 px-3 sm:px-0">
-                    <button  v-if="usertype == 'artist'" class="button block w-full" @click="displayForm = true">
+                    <button  v-if="usertype == 'artist'" class="button block w-full" @click="$store.dispatch('bookings/openForm')">
                         {{ $t('Nouveau projet') }}
                     </button>
                 </div>
@@ -89,14 +88,14 @@
                     per_page : 20,
                     last_page : false,
                 },
-                displayForm : false,
             }
         },
         computed:{
             ...mapState({
-                user : state => state.auth.user,
-                usertype : state => state.auth.user.profile_type,
-                artistId : state => state.auth.user.profile.id,
+                displayForm : state => state.bookings.displayForm,
+                user        : state => state.auth.user,
+                usertype    : state => state.auth.user.profile_type,
+                artistId    : state => state.auth.user.profile.id,
             }),
             current(){
                 return this.nav.find(item => item.name == this.status)

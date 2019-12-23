@@ -32,7 +32,7 @@
                 <nuxt />
             </div>
             <template v-if="usertype == 'artist'">
-                <project-form :artist-id="profile.id" v-if="displayBookingForm" @close="displayBookingForm = false"></project-form>
+                <project-form :artist-id="profile.id" v-if="displayBookingForm" @close="$store.dispatch('bookings/closeForm')"></project-form>
             </template>
         </main>
     </div>
@@ -52,7 +52,6 @@ export default {
 
     data(){
         return {
-            displayBookingForm : false,
             menus : {
                 artist : [
                     {routeName : 'app-home',        icon : 'home'},
@@ -71,18 +70,14 @@ export default {
         }
     },
 
-    mounted(){
-        this.$bus.$on('bookingform:open', () => {
-            this.displayBookingForm = true;
-        })
-    },
-
     computed:{
 
         ...mapState({
-            user : state => state.auth.user,
-            usertype : state => state.auth.user.profile_type,
-            profile : state => state.auth.user.profile,
+            displayBookingForm  : state => state.bookings.displayForm,
+            currentBooking      : state => state.bookings.formPrefill,
+            user                : state => state.auth.user,
+            usertype            : state => state.auth.user.profile_type,
+            profile             : state => state.auth.user.profile,
         }),
 
         menu(){
