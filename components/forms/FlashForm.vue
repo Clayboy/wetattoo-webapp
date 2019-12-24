@@ -8,7 +8,7 @@
                 <div v-if="!flash" class="mb-3">
                     <img :src="filePreview" v-if="filePreview" alt="">
 
-                    <div v-show="!filePreview" class="flex items-stretch">
+                    <div v-show="!filePreview" class="flex items-stretch justify-center">
                         <div class="relative w-1/2 mr-2">
                             <button class="w-full btn btn-primary-outline" @click.prevent>
                                 <font-awesome-icon :icon="['fal', 'camera-retro']" class="text-lg"></font-awesome-icon>
@@ -21,13 +21,13 @@
                                 @change="updateFile"
                                 class="absolute opacity-0 cursor-pointer w-24 w-full h-full inset-x-0 bottom-0 top-0"  />
                         </div>
-                        <div class="relative w-1/2">
+                        <!-- <div class="relative w-1/2">
                             <button class="btn btn-primary-outline w-full" @click.prevent>
                                 <font-awesome-icon :icon="['fal', 'image-polaroid']" class="text-lg"></font-awesome-icon>
                                 <br />
                                 Image du portfolio
                             </button>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>
