@@ -33,7 +33,6 @@
                         Réserver
                     </button>
                 </div>
-                <font-awesome-icon :icon="['fal', 'heart']" class="text-lg"></font-awesome-icon>
             </div>
         </div>
 

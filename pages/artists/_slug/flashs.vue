@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-stretch flex-wrap">
-        <div v-for="flash in artist.flashes" :key="flash.id" class="w-1/2 md:w-1/4 p-2" >
+        <div v-for="flash in artist.flashes" :key="flash.id" class="w-1/2 lg:w-1/4 p-2" >
             <tattoo-flash-card @open="openOverview" :flash="flash">
             </tattoo-flash-card>
         </div>
