@@ -162,6 +162,11 @@
                 <div class=" flex items-center justify-center border-b-2 border-gray-200">
                     <ul class="flex" style="margin:-2px;">
                         <li class="mr-3">
+                            <nuxt-link :to="{name : 'artists-slug-flashs', params : {slug : artist.slug}}" class="nav-tab" href="#">
+                                {{ $t("Flashs") }}
+                            </nuxt-link>
+                        </li>
+                        <li class="mr-3">
                             <nuxt-link :to="{name : 'artists-slug', params : {slug : artist.slug}}"  class="nav-tab">
                                 {{ $t("Portfolio") }}
                             </nuxt-link>
@@ -171,17 +176,11 @@
                                 {{ $t("Guest & Conventions") }}
                             </nuxt-link>
                         </li>
-                        <li class="mr-3">
-                            <nuxt-link :to="{name : 'artists-slug-flashs', params : {slug : artist.slug}}" class="nav-tab" href="#">
-                                {{ $t("Flashs") }}
-                            </nuxt-link>
-                        </li>
                     </ul>
                 </div>
 
                 <div class="px-4 py-3">
-                    <nuxt-child :artist="artist"
-                        @bookflash="bookFlash" />
+                    <nuxt-child :artist="artist" />
                 </div>
             </div>
         </div>
@@ -216,6 +215,17 @@ export default {
             displayWorkHours : false,
             tattooFlash : null,
         }
+    },
+
+    created(){
+        this.$bus.$on('bookflash', (flash) => {
+            this.tattooFlash = flash;
+            this.bookingForm = true;
+        })
+    },
+
+    beforeDestroy(){
+        this.$bus.$off('bookflash');
     },
 
     mounted(){
@@ -324,10 +334,6 @@ export default {
             Vue.set(this.artist, payload.prop, payload.value);
         },
 
-        bookFlash(flash){
-            this.tattooFlash = flash;
-            this.bookingForm = true;
-        },
         closeBookingForm(){
             this.bookingForm = false;
             this.tattooFlash = null;
