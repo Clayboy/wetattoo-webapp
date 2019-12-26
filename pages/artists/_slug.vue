@@ -161,7 +161,7 @@
             <div class="md:flex-grow bg-white shadow-md pt-4">
                 <div class=" flex items-center justify-center border-b-2 border-gray-200">
                     <ul class="flex" style="margin:-2px;">
-                        <li class="mr-3">
+                        <li class="mr-3" v-if="artist.flashes.length">
                             <nuxt-link :to="{name : 'artists-slug-flashs', params : {slug : artist.slug}}" class="nav-tab" href="#">
                                 {{ $t("Flashs") }}
                             </nuxt-link>
