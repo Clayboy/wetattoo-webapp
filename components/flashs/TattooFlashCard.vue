@@ -5,6 +5,7 @@
         </div>
         <div class="w-full pb-full relative cursor-pointer" @click="$emit('open', flash)">
             <img :src="flash.media.url" v-if="flash.media" alt="" class="absolute w-full h-full top-0 object-contain">
+            <img src="/images/booked.png" class="absolute h-2/3 w-2/3" style="top:16.66%;left:16.66%" v-if="flash.booked" />
         </div>
         <div class="py-1 px-2 text-sm  flex-grow">
             <div class="props flex items-start justify-between  flex-grow">
