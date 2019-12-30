@@ -40,7 +40,7 @@
                                         <ul>
                                             <li class="block sm:hidden"><a href="#" @click.prevent="editFlash(flash)">Editer</a></li>
                                             <li><a href="#" @click.prevent="$store.dispatch('bookings/openForm', {flash : flash})">Créer un projet pour ce flash</a></li>
-                                            <li><a href="#">Marquer comme vendu</a></li>
+                                            <!-- <li><a href="#">Marquer comme vendu</a></li> -->
                                             <li><a href="#" @click.prevent="deleteFlash(index)">Supprimer</a></li>
                                         </ul>
                                     </option-menu>
