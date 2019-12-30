@@ -197,6 +197,9 @@ import SubscribeButton from '~/components/forms/SubscribeButton'
 import ArtistPublishButton from '~/components/forms/ArtistPublishButton'
 
 export default {
+    layout({$auth}){
+        return $auth.loggedIn ? 'member' : 'default'
+    },
     async asyncData({ params, $axios }) {
         const artist = await $axios.$get(`/artists/${params.slug}`)
         return {artist : artist}
