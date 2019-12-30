@@ -3,7 +3,7 @@
         <app-header></app-header>
         <main class="pb-10" style="padding-top:56px;">
             <div class="sidebar flex text-2xl flex-col">
-                <ul class="sidebar-mainmenu h-full">
+                <ul class="sidebar-mainmenu h-full hidden sm:block">
                     <li v-for="(item, index) in menu" :key="index" :class="item.class ? item.class : ''">
                         <nuxt-link v-if="item.routeName" :to="{name : item.routeName, params : item.params != undefined ? item.params : {}, query : item.query != undefined ? item.query : {}}">
                             <font-awesome-icon :icon="['fal', item.icon]"></font-awesome-icon>
@@ -26,6 +26,7 @@
                         </button>
                     </li>
                 </ul>
+
             </div>
 
             <div class="pb-6 member-content">
@@ -56,8 +57,8 @@ export default {
                 artist : [
                     {routeName : 'app-home',        icon : 'home'},
                     {routeName : 'app-portfolio',   icon : 'image-polaroid'},
-                    {routeName : 'app-tattooflash',     icon : 'bolt'},
-                    {routeName : 'app-events',      icon : 'globe-stand'},
+                    {routeName : 'app-tattooflash', icon : 'bolt'},
+                    // {routeName : 'app-events',      icon : 'globe-stand'},
                     {routeName : 'app-bookings',    query : {status:"pending"}, icon : 'paper-plane'},
                     {routeName : 'app-calendar',    icon : 'calendar-alt'},
                 ],

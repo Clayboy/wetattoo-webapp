@@ -11,26 +11,34 @@
                 Tattoo Flashes
             </h1>
             <div>
-                <button class="button" @click="flashForm = true">
+                <button class="btn btn-primary" @click="flashForm = true">
                     {{ $t("Ajouter un Flash") }}
                 </button>
             </div>
         </header>
 
+        
+        <button class="bg-indigo-800 cursor-pointer text-white shadow-md focus:shadow focus:bg-indigo-900 hover:bg-indigo-900 pointer fixed p-3 leading-none w-12 h-12 text-center rounded-full sm:hidden z-50" style="bottom:63px;right:7px" @click="flashForm = true">
+            <font-awesome-icon :icon="['far', 'plus']" class="text-xl shadow"></font-awesome-icon>
+        </button>
+
 
         <tabs>
             <tab :icon="['fal', 'bolt']" name="forsale" label="flash en vente" :selected="true">
-                <div class="border-b justify-between flex items-center border-gray-400 sm:-mt-2 pb-2 mb-4 text-gray-600">
-                    <h3 class="">
-                        {{availableFlashes.length}} Flashs en vente
-                    </h3>
-                    <h3 class="">
-                        Gains potentiels : {{ totalForSale }} €
-                    </h3>
+
+                <div class="border-b border-gray-400 sm:-mt-2 pb-2 mb-4 text-gray-600">
+                    <div class="justify-between flex items-center">
+                        <h3 class="">
+                            {{availableFlashes.length}} Flashs en vente
+                        </h3>
+                        <h3 class="">
+                            Gains potentiels : {{ totalForSale }} €
+                        </h3>
+                    </div>
                 </div>
-                <div class="md:flex items-stretch flex-wrap -mx-2">
-                    <div v-for="(flash, index) in availableFlashes" :key="flash.id" class="w-full md:w-1/2 p-1 md:p-2" >
-                        <flash-card-h :flash="flash">
+                <div class="flex items-stretch flex-wrap">
+                    <div v-for="(flash, index) in availableFlashes" :key="flash.id" class="w-1/2 md:w-1/4 p-1 md:p-2">
+                        <flash-card :flash="flash">
                             <template v-slot:actions>
                                 <div class="flex items-center">
                                     <button class="hidden sm:block text-blue-500 hover:text-blue-700 mr-2" @click.prevent="editFlash(flash)">
@@ -39,14 +47,14 @@
                                     <option-menu :btn-class="['px-2']">
                                         <ul>
                                             <li class="block sm:hidden"><a href="#" @click.prevent="editFlash(flash)">Editer</a></li>
-                                            <li><a href="#" @click.prevent="$store.dispatch('bookings/openForm', {flash : flash})">Créer un projet pour ce flash</a></li>
+                                            <li><a href="#" @click.prevent="$store.dispatch('bookings/openForm', {flash : flash})">Créer un projet</a></li>
                                             <!-- <li><a href="#">Marquer comme vendu</a></li> -->
                                             <li><a href="#" @click.prevent="deleteFlash(index)">Supprimer</a></li>
                                         </ul>
                                     </option-menu>
                                 </div>
                             </template>
-                        </flash-card-h>
+                        </flash-card>
                     </div>
                 </div>
                  <div v-if="!flashes" class="text-center py-6 text-gray-500 text-xl">
@@ -68,9 +76,9 @@
                         Gains estimés : {{ totalSold }} €
                     </h3>
                 </div>
-                <div class="md:flex items-stretch flex-wrap">
-                    <div v-for="(flash, index) in bookedFlashes" :key="flash.id" class="w-full md:w-1/2 p-1 md:p-2" >
-                        <flash-card-h :flash="flash">
+                <div class="flex items-stretch flex-wrap">
+                    <div v-for="(flash, index) in bookedFlashes" :key="flash.id" class="w-1/2 md:w-1/4 p-1 md:p-2">
+                        <flash-card :flash="flash">
                             <template v-slot:actions>
                                 <div class="flex items-center">
                                     <option-menu :btn-class="['px-2']">
@@ -80,7 +88,7 @@
                                     </option-menu>
                                 </div>
                             </template>
-                        </flash-card-h>
+                        </flash-card>
                     </div>
                 </div>
                 <div v-if="!bookedFlashes" class="text-center py-6 text-gray-500 text-xl">
@@ -100,7 +108,7 @@
     import OptionMenu from '@/components/OptionMenu'
     import FlashForm from '@/components/forms/FlashForm'
     import TattooFlashCard from '@/components/flashs/TattooFlashCard'
-    import FlashCardH from '@/components/flashs/FlashCardH'
+    import FlashCard from '@/components/flashs/FlashCard'
     import _ from 'lodash'
 
     import Tabs from '@/components/Tabs';
@@ -113,7 +121,7 @@
             FlashForm,
             TattooFlashCard,
             OptionMenu,
-            FlashCardH,
+            FlashCard,
             Tabs,
             Tab
         },

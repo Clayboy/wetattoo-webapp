@@ -58,6 +58,13 @@
                         description : 'Vos horaires de travail',
                     },
                     {
+                        route : 'app-profile-edit-events',
+                        userTypes : ['artist'],
+                        label : 'Guestspots',
+                        icon : 'globe-stand',
+                        description : 'Vos déplacements',
+                    },
+                    {
                         route : 'app-profile-edit-verification',
                         userTypes : ['artist'],
                         label : 'Vérification',

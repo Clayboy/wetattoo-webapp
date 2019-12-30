@@ -1,6 +1,6 @@
 <template>
     <div class="relative md:flex">
-        <div class="md:w-1/4 md:mr-4 left-0 w-full md:relative">
+        <div class="md:w-1/5 md:mr-4 left-0 w-full md:relative">
             <ul class="sidenav">
                 <li v-for="item in this.tabs" class="sidenav-item md:w-full" :key="item.name">
                     <a href="#" @click="setActiveTab(item.name)" class="sidenav-link" :class="{'nuxt-link-exact-active nuxt-link-active' : item.active}" :to="{name : item.route}">
