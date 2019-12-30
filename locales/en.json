@@ -587,5 +587,15 @@
     "Tableau de bord" : "Dashboard",
     "Agenda" : "Agenda",
     "Nom d'artiste" : "Artist name",
-    "Adresse profil" : "Profile URL"
+    "Adresse profil" : "Profile URL",
+
+    "vues" : "{n} view | {n} views",
+
+    "Personnalisation" : "Customisation",
+    "Emplacements conseillés" : "Recommended locations",
+    "Le flash peut être redimensionné (le prix peut varier)" : "This flash tattoo can be upsized or downsized (price may vary)",
+    "Taille non modifiable" : "Size cannot be changed",
+    "Le motif ne peut pas être personnalisé" : "Drawing cannot be customised",
+    "Le motif peut être adapté à vos envies (le prix peut varier)" : "Drawing can be customised  (price may vary)",
+    "Réservé !" : "Already booked!"
 }

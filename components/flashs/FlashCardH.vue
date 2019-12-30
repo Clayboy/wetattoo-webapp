@@ -15,19 +15,25 @@
                 </div>
             </div>
             <div class="py-1 px-2 text-sm">
-                <div class="mb-3 flex items-center justify-between">
+                <div class="flex justify-between">
                     <div>
-                        <font-awesome-icon :icon="['far', 'expand']" class="mr-1"></font-awesome-icon> {{ flash.size_w }} x {{ flash.size_h }} cm
+                        <p>
+                            <font-awesome-icon :icon="['far', 'expand']" class="mr-1"></font-awesome-icon> {{ flash.size_w }} x {{ flash.size_h }} cm
+                        </p>
+                        <p>
+                            <font-awesome-icon :icon="['far', 'stopwatch']" class="mr-1"></font-awesome-icon> {{ flash.duration | humanDuration }}
+                        </p>
+                        <p v-show="flash.expandable" >
+                            <font-awesome-icon :icon="['fal', 'check']" class="mr-1"></font-awesome-icon>{{ $t('taille modifiable') }}
+                        </p>
+                        <p v-show="flash.alterable" >
+                            <font-awesome-icon :icon="['fal', 'check']" class="mr-1"></font-awesome-icon>{{ $t('personnalisable') }}
+                        </p>
                     </div>
                     <div>
-                        <font-awesome-icon :icon="['far', 'stopwatch']" class="mr-1"></font-awesome-icon> {{ flash.duration | humanDuration }}
+                        {{flash.view_count}}
+                        <font-awesome-icon :icon="['fas', 'eye']" class="ml-1"></font-awesome-icon>
                     </div>
-                </div>
-                <div>
-                    <p v-show="flash.expandable" >
-                        <font-awesome-icon :icon="['fal', 'check']" class="mr-1"></font-awesome-icon>{{ $t('taille modifiable') }}</p>
-                    <p v-show="flash.alterable" >
-                        <font-awesome-icon :icon="['fal', 'check']" class="mr-1"></font-awesome-icon>{{ $t('personnalisable') }}</p>
                 </div>
             </div>
 

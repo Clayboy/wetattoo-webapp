@@ -17,10 +17,6 @@
                     <p>
                         <font-awesome-icon :icon="['far', 'stopwatch']" class="mr-1"></font-awesome-icon> {{ flash.duration | humanDuration }}
                     </p>
-                    <p v-if="flash.alterable">
-                        <font-awesome-icon :icon="['fal', 'check']" class="mr-1"></font-awesome-icon>
-                        {{ $t('Personnalisable')}}
-                    </p>
                 </div>
                 <div class="font-medium">
                     {{ flash.price }} {{ flash.currency }}

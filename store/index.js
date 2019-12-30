@@ -19,8 +19,6 @@ export const getters = {
             {label : ('Conventions'), route : 'conventions'}
         ]
     },
-    // profile : state => state.user.profile,
-    // usertype : state => state.user.profile_type
 }
 
 export const actions = {
