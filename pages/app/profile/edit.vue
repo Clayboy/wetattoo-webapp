@@ -1,11 +1,5 @@
 <template>
-    <div class="container mx-auto">
-        <header class="mb-4 px-3 sm:px-0">
-            <h1 class="page-title">
-                <!-- <span v-if="parentMenu">{{ parentMenu.meta.label }}</span> <span class="mx-1">></span> {{ $route.meta.label }} -->
-            </h1>
-        </header>
-
+    <div class="container mx-auto sm:mt-6">
         <div class="relative md:flex">
             <div class="md:w-1/4 md:mr-4 left-0 w-full md:relative">
                 <ul class="sidenav">
@@ -22,7 +16,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="md:w-3/4 bg-white shadow p-4">
+            <div class="md:w-3/4 bg-white sm:shadow p-4">
                 <nuxt-child />
             </div>
         </div>
