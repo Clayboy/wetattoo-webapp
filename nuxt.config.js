@@ -99,6 +99,8 @@ module.exports = {
                 en : '/about/artists',
                 fr : '/a-propos/tatoueurs',
             },
+            'conventions/_slug' : false,
+            'conventions/index' : false,
             'legal/terms' : false,
             'legal/cgu' : false,
             'app/' : false,
