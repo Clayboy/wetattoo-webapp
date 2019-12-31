@@ -23,6 +23,9 @@
     "verified.pending" : "Vérification en attente",
     "verified.valid" : "Vérifié",
     "verified.invalid" : "Verification invalide",
-    "verified.none" : "Non vérifié"
+    "verified.none" : "Non vérifié",
+
+    "vues" : "{n} vue | {n} vues"
+
 
 }

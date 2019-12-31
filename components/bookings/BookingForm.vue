@@ -5,6 +5,11 @@
             <span v-html="title"></span>
         </template>
         <template v-slot:body>
+            <div v-if="flash">
+                <div class="w-2/3 mx-auto pb-2/3 relative">
+                    <img :src="flash.media.url" class="absolute w-full h-full top-0 object-contain" />
+                </div>
+            </div>
             <form ref="bookingform" method="post" @submit.prevent="onSubmit">
                     <div class="mb-8">
                         <h3 class="text-xl font-light mb-3">
@@ -21,7 +26,7 @@
                                     name="zone"
                                     v-model="bookingRequest.zone">
                                     <option value="" class="text-gray-500">— {{ $t("Choisissez l'emplacement de votre futur tatouage")}} —</option>
-                                    <option v-for="zone in tattooZones"
+                                    <option v-for="zone in zones"
                                         v-text="zone.label"
                                         :value="zone.name"
                                         :key="zone.name"></option>
@@ -40,6 +45,7 @@
                                         class="input mr-3"
                                         :class="{'error' : bookingRequest.errors.has('size_l')}"
                                         name="size_l"
+                                        :disabled="!sizeEditable"
                                         :placeholder="$i18n.t('Largeur approximative')"
                                         v-model="bookingRequest.size_l">
                                     <input
@@ -47,6 +53,7 @@
                                         class="input"
                                         :class="{'error' : bookingRequest.errors.has('size_h')}"
                                         name="size_l"
+                                        :disabled="!sizeEditable"
                                         :placeholder="$i18n.t('Hauteur approximative')"
                                         v-model="bookingRequest.size_h">
                                 </div>
@@ -322,54 +329,25 @@
     import RightPanel from '@/components/layout/RightPanel';
     import {tattooZones} from '@/utilities/TattooVars';
 
+    import BookingMixin from '@/utilities/BookingMixin';
+
     import {mapState, mapGetters, mapActions} from 'vuex';
 
     export default {
+        mixins : [BookingMixin],
         components : {
             LoginForm,
             RegisterForm,
-            RightPanel
-        },
-        props:{
-            artistId : {
-                type:Number,
-                required:true,
-            },
-            artistPseudo : {
-                type: String
-            }
         },
         data(){
             return {
-                recaptcha_key : window.recaptcha_key,
-                bookingRequest : new Form({
-                    artist_id : this.artistId,
-                    gRecaptchaResponse : null,
-                    user_id : null,
-                    zone : '',
-                    size_l : '',
-                    size_h : '',
-                    style : 'color',
-                    title : '',
-                    description : '',
-                    availabilities : '',
-                    budget : '',
-
-                    firstname : '',
-                    lastname : '',
-                    tattooed : false,
-                    email : '',
-                    phone : '',
-                }),
                 account : 'new',
                 step : 1,
-                tattooZones : this.$root.context.app.global.tattooZones
             }
         },
 
         async mounted() {
             await this.$recaptcha.init()
-            this.tattooZones = await this.$store.dispatch('tattooZones')
         },
 
 
@@ -383,18 +361,23 @@
         computed:{
 
             title(){
-                return this.$i18n.t('Réserver un tatouage avec {artist}', {artist : `<span class="text-indigo-800">${this.artistPseudo}</span>`})
+                if(this.flash){
+                    return this.$i18n.t('Réserver un flash à {artist}', {artist : `<span class="text-indigo-800">${this.artistPseudo}</span>`})
+                }else{
+                    return this.$i18n.t('Réserver un tatouage à {artist}', {artist : `<span class="text-indigo-800">${this.artistPseudo}</span>`})
+                }
             },
 
             user(){
                 return this.$store.state.auth.user;
+            },
+
+            sizeEditable(){
+                return this.flash == null || (this.flash != null && this.flash.expandable)
             }
         },
 
         methods : {
-
-            
-
             setToken(token){
                 this.bookingRequest.gRecaptchaResponse = token;
                 this.save();
@@ -404,17 +387,7 @@
                 this.bookingRequest.user_id = this.$store.state.auth.user.id;
             },
 
-            async onSubmit() {
-                try {
-                    const token = await this.$recaptcha.execute('login')
-                    console.log('ReCaptcha token:', token)
-                } catch (error) {
-                    console.log('Login error:', error)
-                }
-            },
-
             save(){
-
                 if(this.bookingRequest.user_id){
                     this.saveBooking();
                 }else{
@@ -453,10 +426,6 @@
                         this.bookingRequest.gRecaptchaResponse = "";
                         this.$recaptcha.reset();
                     })
-            },
-
-            close(){
-                this.$emit('close');
             },
 
             onError(error) {

@@ -9,7 +9,10 @@
                 {{ recipient }}
             </div>
             <div class="md:flex text-left items-baseline flex-grow flex-shrink truncate">
-                <div>{{ booking.title }}</div>
+                <div>
+                    <font-awesome-icon :icon="['fas', 'bolt']" class="text-yellow-500" v-if="booking.flash_id"></font-awesome-icon>
+                    {{ booking.title }}
+                </div>
                 <div class="hidden md:block text-gray-500 mx-1">—</div>
                 <div class="text-sm text-gray-600">{{ booking.description }}</div>
             </div>

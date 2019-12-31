@@ -119,7 +119,7 @@
             menu (){
                 return [
                     {label : this.$i18n.t('Artistes'), route : {name : 'artists'}},
-                    {label : this.$i18n.t('Conventions'), route : this.localePath('conventions')}
+                    {label : this.$i18n.t('Conventions'), route : {name : 'conventions'}}
                 ]
             },
 

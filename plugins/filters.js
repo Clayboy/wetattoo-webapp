@@ -24,6 +24,13 @@ Vue.filter('diffForHumans', function (value) {
     return date.fromNow();
 })
 
+Vue.filter('humanDuration', function (value) {
+
+    let hours = Math.floor(parseInt(value, 10) / 60);
+    let minutes = parseInt(value, 10) % 60;
+    return `${hours}h` + (minutes != 0 ? minutes : '');
+})
+
 
 Vue.filter('date_i18n', function (value) {
 

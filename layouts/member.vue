@@ -3,7 +3,7 @@
         <app-header></app-header>
         <main class="pb-10" style="padding-top:56px;">
             <div class="sidebar flex text-2xl flex-col">
-                <ul class="sidebar-mainmenu h-full">
+                <ul class="sidebar-mainmenu h-full hidden sm:block">
                     <li v-for="(item, index) in menu" :key="index" :class="item.class ? item.class : ''">
                         <nuxt-link v-if="item.routeName" :to="{name : item.routeName, params : item.params != undefined ? item.params : {}, query : item.query != undefined ? item.query : {}}">
                             <font-awesome-icon :icon="['fal', item.icon]"></font-awesome-icon>
@@ -26,11 +26,15 @@
                         </button>
                     </li>
                 </ul>
+
             </div>
 
             <div class="pb-6 member-content">
                 <nuxt />
             </div>
+            <template v-if="usertype == 'artist'">
+                <project-form :artist-id="profile.id" v-if="bookingForm" :flash="bookingFlash" @close="$store.dispatch('bookings/closeForm')"></project-form>
+            </template>
         </main>
     </div>
 </template>
@@ -39,22 +43,24 @@
 
 import AppHeader from '@/components/layout/Header';
 import { mapState, mapGetters } from 'vuex';
+import ProjectForm from '@/components/bookings/ProjectForm';
 
 export default {
     components : {
         AppHeader,
+        ProjectForm
     },
 
     data(){
         return {
             menus : {
                 artist : [
-                    {routeName : 'app-home',            icon : 'home'},
-                    {routeName : 'app-portfolio',       icon : 'image-polaroid'},
-                 // {routeName : 'bo.flashes',      icon : 'bolt'},
-                    {routeName : 'app-events',      icon : 'globe-stand'},
+                    {routeName : 'app-home',        icon : 'home'},
+                    {routeName : 'app-portfolio',   icon : 'image-polaroid'},
+                    {routeName : 'app-tattooflash', icon : 'bolt'},
+                    // {routeName : 'app-events',      icon : 'globe-stand'},
                     {routeName : 'app-bookings',    query : {status:"pending"}, icon : 'paper-plane'},
-                    {routeName : 'app-calendar',     icon : 'calendar-alt'},
+                    {routeName : 'app-calendar',    icon : 'calendar-alt'},
                 ],
                 member : [
                     {routeName : 'app-home', icon : 'home'},
@@ -68,8 +74,11 @@ export default {
     computed:{
 
         ...mapState({
-            user : state => state.auth.user,
-            usertype : state => state.auth.user.profile_type,
+            bookingForm     : state => state.bookings.displayForm,
+            bookingFlash    : state => state.bookings.flash,
+            user            : state => state.auth.user,
+            usertype        : state => state.auth.user.profile_type,
+            profile         : state => state.auth.user.profile,
         }),
 
         menu(){

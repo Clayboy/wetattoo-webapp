@@ -1,16 +1,29 @@
 <template>
         <button :class="classes"
-            @click="subscribe"
+            @click.prevent.stop="subscribe"
             v-text="isActive ? 'Following' : 'Follow'" />
 </template>
 
 <script>
     export default {
 
-        props : [
-            'active',
-            'artist'
-        ],
+        props : {
+            active :  {
+                type: Boolean,
+            },
+            artist : {
+                type: Object,
+                required: true,
+            },
+            activeClass : {
+                type : Array | String,
+                default : () => ['btn', 'btn-primary'],
+            },
+            inactiveClass : {
+                type : Array | String,
+                default : () => ['btn', 'btn-primary'],
+            }
+        },
 
         data(){
             return {
@@ -20,7 +33,7 @@
 
         computed : {
             classes(){
-                return ['btn', this.isActive ? 'btn-primary-outline' : ' btn-primary'];
+                return this.isActive ? this.activeClass :  this.inactiveClass;
             }
         },
 

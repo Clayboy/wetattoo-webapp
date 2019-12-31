@@ -30,8 +30,6 @@ module.exports = {
         ]
     },
 
-
-    
     modules: [
       '@nuxtjs/axios',
       '@nuxtjs/auth',
@@ -101,6 +99,8 @@ module.exports = {
                 en : '/about/artists',
                 fr : '/a-propos/tatoueurs',
             },
+            'conventions/_slug' : false,
+            'conventions/index' : false,
             'legal/terms' : false,
             'legal/cgu' : false,
             'app/' : false,
@@ -117,7 +117,7 @@ module.exports = {
             'app/portfolio/index' : false,
             'app/bookings/index' : false,
             'app/bookings/_id' : false,
-            'conventions/_slug' : false,
+            'app/tattooflash' : false,
         },
         vueI18n: {
           fallbackLocale: 'fr',

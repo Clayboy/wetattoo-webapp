@@ -11,8 +11,9 @@
         </div>
         <booking-form :artist-id="artist.id" 
             :artist-pseudo="artist.pseudo" 
+            :flash="tattooFlash"
             v-if="artist && bookingForm" 
-            @close="bookingForm = false" />
+            @close="closeBookingForm" />
 
         <div class="md:flex items-start h-full md:px-6 md:pt-5 relative">
 
@@ -160,6 +161,11 @@
             <div class="md:flex-grow bg-white shadow-md pt-4">
                 <div class=" flex items-center justify-center border-b-2 border-gray-200">
                     <ul class="flex" style="margin:-2px;">
+                        <li class="mr-3" v-if="artist.flashes.length">
+                            <nuxt-link :to="{name : 'artists-slug-flashs', params : {slug : artist.slug}}" class="nav-tab" href="#">
+                                {{ $t("Flashs") }}
+                            </nuxt-link>
+                        </li>
                         <li class="mr-3">
                             <nuxt-link :to="{name : 'artists-slug', params : {slug : artist.slug}}"  class="nav-tab">
                                 {{ $t("Portfolio") }}
@@ -191,6 +197,9 @@ import SubscribeButton from '~/components/forms/SubscribeButton'
 import ArtistPublishButton from '~/components/forms/ArtistPublishButton'
 
 export default {
+    layout({$auth}){
+        return $auth.loggedIn ? 'member' : 'default'
+    },
     async asyncData({ params, $axios }) {
         const artist = await $axios.$get(`/artists/${params.slug}`)
         return {artist : artist}
@@ -207,7 +216,19 @@ export default {
         return {
             bookingForm : false,
             displayWorkHours : false,
+            tattooFlash : null,
         }
+    },
+
+    created(){
+        this.$bus.$on('bookflash', (flash) => {
+            this.tattooFlash = flash;
+            this.bookingForm = true;
+        })
+    },
+
+    beforeDestroy(){
+        this.$bus.$off('bookflash');
     },
 
     mounted(){
@@ -314,6 +335,11 @@ export default {
         },
         updateProp(payload){
             Vue.set(this.artist, payload.prop, payload.value);
+        },
+
+        closeBookingForm(){
+            this.bookingForm = false;
+            this.tattooFlash = null;
         }
     },
 
