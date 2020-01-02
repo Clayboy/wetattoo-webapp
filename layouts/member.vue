@@ -21,7 +21,7 @@
                         </nuxt-link>
                     </li>
                     <li class="hidden sm:block">
-                        <button class="text-center w-full block" @click.prevent="$auth.logout()">
+                        <button class="text-center w-full block" @click.prevent="logout">
                             <font-awesome-icon :icon="['fal', 'power-off']"></font-awesome-icon>
                         </button>
                     </li>
@@ -95,6 +95,13 @@ export default {
             }else{
                 return ({name : 'app-profile'});
             }
+        }
+    },
+
+    methods:{
+        logout(){
+            this.$auth.logout()
+                .then(() => this.$router.push('/'))
         }
     }
 }

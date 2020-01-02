@@ -1,5 +1,5 @@
 <template>
-    <form method="POST" @submit.prevent="submit">
+    <form method="POST" @submit.prevent.stop="submit">
         <div class="field mb-2">
             <label class="label mb-1 block" for="name">
                 {{ type == 'artist' ? $t("Nom d'artiste") : $t('Pseudo') }}
@@ -58,6 +58,10 @@
             </div>
         </div>
         <div v-if="displaySubmit" class="text-right">
+            <recaptcha @error="onError" 
+                @success="onSuccess" 
+                @expired="onExpired" />
+
             <button type="submit" class="bg-indigo-800 hover:bg-indigo-900 text-white py-1 px-4 rounded">
                 {{ $t('Créer votre compte') }}
             </button>
@@ -79,7 +83,7 @@
                 type: Boolean,
                 required: false,
                 default : true,
-            }
+            },
         },
         data(){
             return {
@@ -90,8 +94,19 @@
                     password: '',
                     password_confirmation: '',
                     profile : this.type,
-                    locale : this.$i18n.locale
+                    locale : this.$i18n.locale,
+                    useCaptcha : this.displaySubmit, 
+                    captcha : '',
                 })
+            }
+        },
+        async mounted() {
+            if(this.form.useCaptcha){
+                try{
+                    await this.$recaptcha.init()
+                }catch(e){
+                    console.log(`RegisterForm`, e)
+                }
             }
         },
         watch:{
@@ -100,18 +115,60 @@
             }
         },
         methods: {
-            submit() {
-                return this.form.post('/auth/register')
-                    .then((data) => {
-                        this.$auth.setUserToken(data.token);
-                        this.$auth.fetchUser()
-                        this.$emit('registered', {user : data.user});
-                    })
-                    .catch((error) => {
-                        // console.dir(error);
-                        // alert(error.error);
-                    });
-            }
+
+            async submit() {
+
+                if(this.form.useCaptcha){
+                    try{
+                        this.form.captcha = await this.$recaptcha.getResponse();
+                    }catch (error) {	   
+                        console.log('Login error:', error)	   
+                    }	
+                }
+
+                return this.register();
+            },
+
+            async register(){
+                try{
+
+                    let response = await this.form.post('/auth/register');
+                    await this.$auth.setUserToken(response.token)
+                    this.$emit('registered', {user : response.user})
+                    return response;
+
+                }catch(error){
+                    if(this.form.useCaptcha){
+                        this.form.captcha = "";
+                        this.$recaptcha.reset();
+                    }
+                }
+
+                // return this.form.post('/auth/register')
+                //     .then((data) => {
+                //         this.$auth.setUserToken(data.token);
+                //         this.$auth.fetchUser()
+                //         this.$emit('registered', {user : data.user});
+                //     })
+                //     .catch((error) => {
+                //         if(this.form.useCaptcha){
+                //             this.form.captcha = "";
+                //             this.$recaptcha.reset();
+                //         }
+
+                //     });
+            },
+
+            onError(error) {
+                console.log('Error happened:', error)	     
+            },
+
+            onSuccess (token) {	  
+                console.log('Succeeded:', token)	
+            },	    
+            onExpired() {
+                console.log('Expired')	   
+            }	
         }
     }
 </script>

@@ -73,15 +73,15 @@
         },
 
         methods: {
-            async submit() {
-                try{
-                    await this.$auth.loginWith('local', {
-                        data : this.form.data()
-                    })
+            submit() {
+                return this.$auth.loginWith('local', {
+                    data : this.form.data()
+                }).then(data => {
                     this.$emit('logged');
-                }catch(error){
-                    this.error = true;
-                }
+                })
+                .catch(() => {
+                    this.error = true
+                })
             }
         }
     }
