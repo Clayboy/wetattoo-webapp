@@ -17,7 +17,7 @@
                 </li>
             </ul>
             <hr class="hidden sm:block border-t mx-2 border-gray-200" />
-            <a href="#" @click="$auth.logout()"  class="user-menu-item"  v-text="$i18n.t('Déconnexion')" />
+            <a href="#" @click="logout"  class="user-menu-item"  v-text="$i18n.t('Déconnexion')" />
         </div>
     </div>
 </template>
@@ -35,6 +35,13 @@ export default {
             ]
         },
     },
+
+    methods:{
+        logout(){
+            this.$auth.logout()
+                .then(() => this.$router.push('/'))
+        }
+    }
 }
 </script>
 

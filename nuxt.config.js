@@ -34,7 +34,7 @@ module.exports = {
       '@nuxtjs/axios',
       '@nuxtjs/auth',
       'nuxt-i18n',
-      '@nuxtjs/recaptcha',
+      '~/mods/recaptcha/module.js',
       '@nuxtjs/svg',
       '@nuxtjs/sentry',
       ['nuxt-fontawesome', {
@@ -69,10 +69,11 @@ module.exports = {
     ],
     
     recaptcha: {
-    hideBadge: false, // Hide badge element (v3)
-    language: 'fr',   // Recaptcha language (v2)
-    siteKey: process.env.RECAPTCHA_V2_SITE_KEY,    // Site key for requests
-    version: 2     // Version
+        hideBadge: true, // Hide badge element (v3)
+        language: 'fr',   // Recaptcha language (v2)
+        siteKey: process.env.RECAPTCHA_V2_SITE_KEY,    // Site key for requests
+        version: 2,     // Version
+        size : 'invisible'
     },
     i18n: {
         locales: [
@@ -133,8 +134,8 @@ module.exports = {
     },
 
     auth: {
-        login: '/login',
-        logout: '/',
+        // login: '/login',
+        // logout: '/',
         strategies: {
           local: {
             endpoints: {
@@ -145,14 +146,14 @@ module.exports = {
             tokenRequired: true,
             tokenType: 'Bearer', // Case sensitive when dealing with Laravel backend.
           },
-          redirect: {
+        },
+        redirect: {
             login: '/auth/login',
             logout: '/',
-            callback: '/auth/login',
+            callback: false,
             home: '/app/home'
-          }
         },
-        plugins: [ { src: '~/plugins/axios', ssr: true }, '~/plugins/auth.js' ]
+        watchLoggedIn:false,
     },
     axios: {
         baseURL : process.env.API_URL,

@@ -220,15 +220,13 @@
                                 ref="registerForm"
                                 v-if="account == 'new'"
                                 type="member"
-                                :display-submit="false"
-                                @registered="updateUser">
-                                </register-form>
+                                @registered="registered"
+                                :display-submit="false" />
                             <login-form
                                 :display-submit="false"
                                 :display-lost-password="false"
                                 ref="loginForm"
-                                v-if="account == 'existing'"
-                                @logged="updateUser"></login-form>
+                                v-if="account == 'existing'"></login-form>
 
 
                             <div v-if="account == 'none'">
@@ -347,7 +345,11 @@
         },
 
         async mounted() {
-            await this.$recaptcha.init()
+            try{
+                await this.$recaptcha.init()
+            }catch(e){
+                console.log(e);
+            }
         },
 
 
@@ -360,6 +362,10 @@
 
         computed:{
 
+            ...mapState({
+                user : state => state.auth.user
+            }),
+
             title(){
                 if(this.flash){
                     return this.$i18n.t('Réserver un flash à {artist}', {artist : `<span class="text-indigo-800">${this.artistPseudo}</span>`})
@@ -368,81 +374,88 @@
                 }
             },
 
-            user(){
-                return this.$store.state.auth.user;
-            },
-
             sizeEditable(){
                 return this.flash == null || (this.flash != null && this.flash.expandable)
             }
         },
 
         methods : {
-            setToken(token){
-                this.bookingRequest.gRecaptchaResponse = token;
-                this.save();
+
+            registered(user){
+                console.log(user);
             },
 
-            updateUser(){
-                this.bookingRequest.user_id = this.$store.state.auth.user.id;
-            },
-
-            save(){
+            async save(){
                 if(this.bookingRequest.user_id){
                     this.saveBooking();
                 }else{
                     if(this.account == 'existing'){
-                        this.$refs.loginForm.submit()
-                            .then((data) => {
-                                this.bookingRequest.email = this.$store.state.auth.user.email
-                                this.bookingRequest.user_id = this.$store.state.auth.user.id;
-                                this.saveBooking();
-                            })
+
+                        try{
+                            let response = await this.$refs.loginForm.submit();
+                            this.bookingRequest.email = this.user.email;
+                            this.bookingRequest.user_id = this.user.id;
+                            await this.saveBooking();
+                        }catch(e){
+
+                        }
                     }else if(this.account == 'new'){
-                        this.$refs.registerForm.submit()
-                            .then((data) => {
-                                this.bookingRequest.email = this.$store.state.auth.user.email
-                                this.bookingRequest.user_id = this.$store.state.auth.user.id;
-                                this.saveBooking();
-                            })
+
+                        try{
+                            let response = await this.$refs.registerForm.submit();
+                            this.bookingRequest.email = this.user.email;
+                            this.bookingRequest.user_id = this.user.id;
+                            await this.saveBooking();
+                        }catch(e){
+
+                        }
+
+                        // this.$refs.registerForm.submit()
+                        //     .then((data) => {
+                        //         this.bookingRequest.email = this.user.email;
+                        //         this.bookingRequest.user_id = this.user.id;
+                        //         this.saveBooking();
+                        //     })
                     }else{
                         this.saveBooking();
                     }
                 }
             },
 
-            saveBooking(){
-
-                this.bookingRequest.post(this.$auth.loggedIn ? '/bookings' : '/bookings/anonymous')
-                    .then(response => {
-
-                        this.$message({
-                            message : this.$i18n.t("Merci! Votre demande a été transmise à {artist} !", {artist : this.artistPseudo}),
-                            type: 'success'
-                        });
-                        this.close();
-                    })
-                    .catch(() => {
-                        this.bookingRequest.gRecaptchaResponse = "";
-                        this.$recaptcha.reset();
-                    })
+            async saveBooking(){
+                try{
+                    let response = await this.bookingRequest.post(this.$auth.loggedIn ? '/bookings' : '/bookings/anonymous');
+                    this.$message({
+                        message : this.$i18n.t("Merci! Votre demande a été transmise à {artist} !", {artist : this.artistPseudo}),
+                        type: 'success'
+                    });
+                    this.close();
+                }catch(e){
+                    this.bookingRequest.gRecaptchaResponse = "";
+                    this.$recaptcha.reset();
+                }
             },
+
+            
+            async onSubmit() {	    
+                try {	    
+                    if(this.bookingRequest.gRecaptchaResponse == null || this.bookingRequest.gRecaptchaResponse == ""){
+                        this.bookingRequest.gRecaptchaResponse = await this.$recaptcha.getResponse();
+                    }
+                    this.save();
+                } catch (error) {	   
+                    console.log('Login error:', error)	   
+                }	     
+                
+            },	
 
             onError(error) {
                 console.log('Error happened:', error)	     
             },
-            
-            async onSubmit() {	    
-                try {	    
-                    const token = await this.$recaptcha.getResponse()	 
-                    this.setToken(token)     
-                } catch (error) {	   
-                    console.log('Login error:', error)	   
-                }	     
-            },	
 
             onSuccess (token) {	  
-                console.log('Succeeded:', token)	
+                console.log('success');
+                // this.setToken(token);
             },	    
             onExpired() {
                 console.log('Expired')	   
