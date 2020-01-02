@@ -1,5 +1,5 @@
 <template>
-    <form method="POST" @submit.prevent.stop="submit">
+    <form method="POST" @submit.prevent="submit" @input="form.resetErrors()">
         <div class="field mb-2">
             <label class="label mb-1 block" for="name">
                 {{ type == 'artist' ? $t("Nom d'artiste") : $t('Pseudo') }}
@@ -72,6 +72,8 @@
 <script>
     import Form from '@/utilities/Form'
 
+    const noCaptchaContext = ['booking'];
+
     export default {
         props:{
             type : {
@@ -84,6 +86,11 @@
                 required: false,
                 default : true,
             },
+            context:{
+                type: String,
+                required: false,
+                default : 'register',
+            }
         },
         data(){
             return {
@@ -95,13 +102,13 @@
                     password_confirmation: '',
                     profile : this.type,
                     locale : this.$i18n.locale,
-                    useCaptcha : this.displaySubmit, 
+                    context : this.context, 
                     captcha : '',
-                })
+                }),
             }
         },
         async mounted() {
-            if(this.form.useCaptcha){
+            if(this.hasCaptcha){
                 try{
                     await this.$recaptcha.init()
                 }catch(e){
@@ -114,11 +121,15 @@
                 this.form.locale = newVal;
             }
         },
+        computed: {
+            hasCaptcha(){
+                return noCaptchaContext.indexOf(this.context) == -1;
+            }
+        },
         methods: {
 
             async submit() {
-
-                if(this.form.useCaptcha){
+                if(this.hasCaptcha && this.form.captcha == ''){
                     try{
                         this.form.captcha = await this.$recaptcha.getResponse();
                     }catch (error) {	   
@@ -126,7 +137,7 @@
                     }	
                 }
 
-                return this.register();
+                return await this.register();
             },
 
             async register(){
@@ -138,7 +149,8 @@
                     return response;
 
                 }catch(error){
-                    if(this.form.useCaptcha){
+
+                    if(this.hasCaptcha){
                         this.form.captcha = "";
                         this.$recaptcha.reset();
                     }

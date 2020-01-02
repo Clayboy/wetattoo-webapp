@@ -220,6 +220,7 @@
                                 ref="registerForm"
                                 v-if="account == 'new'"
                                 type="member"
+                                context="booking"
                                 @registered="registered"
                                 :display-submit="false" />
                             <login-form
